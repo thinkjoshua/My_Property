@@ -1,75 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:padding="28dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/editTextTextPersonName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        app:layout_constraintEnd_toEndOf="@+id/textView"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/editTextPhone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:ems="10"
-        android:hint="Phone Number"
-        android:inputType="phone"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-    <EditText
-        android:id="@+id/editTextNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:ems="10"
-        android:hint="Email"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="@+id/editTextPhone"
-        app:layout_constraintStart_toStartOf="@+id/editTextPhone"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPhone" />
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:text="ADD TENANT"
+                tools:layout_editor_absoluteX="162dp" />
 
-    <EditText
-        android:id="@+id/editTextTextPersonName2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:ems="10"
-        android:hint="House Number"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/editTextNumber"
-        app:layout_constraintStart_toStartOf="@+id/editTextNumber"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumber" />
+            <EditText
+                android:id="@+id/editTextPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:ems="10"
+                android:hint="Phone Number"
+                android:inputType="phone" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:text="ADD TENANT"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="162dp" />
+            <EditText
+                android:id="@+id/editTextTextPersonName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name" />
 
-    <Button
-        android:id="@+id/button6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Submit"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName2"
-        app:layout_constraintHorizontal_bias="0.369"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName2"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <EditText
+                android:id="@+id/editTextNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:ems="10"
+                android:hint="Email"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/editTextTextPersonName2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:ems="10"
+                android:hint="House Number"
+                android:inputType="textPersonName" />
+
+            <Button
+                android:id="@+id/button6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Submit" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
