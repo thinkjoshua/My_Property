@@ -9,7 +9,7 @@
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.1" />
         <entry key="app/src/main/res/layout/add_building.xml" value="0.25" />
         <entry key="app/src/main/res/layout/add_maintenance_request.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/add_tenant.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/add_tenant.xml" value="0.25" />
       </map>
     </option>
   </component>
