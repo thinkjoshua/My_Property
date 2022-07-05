@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ManagerDashboardActivity">
+    tools:context=".ui.MainActivity">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnTenant"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -17,32 +17,32 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnContractor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="CONTRACTORS"
-        app:layout_constraintEnd_toEndOf="@+id/button"
-        app:layout_constraintStart_toStartOf="@+id/button"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintEnd_toEndOf="@+id/btnTenant"
+        app:layout_constraintStart_toStartOf="@+id/btnTenant"
+        app:layout_constraintTop_toBottomOf="@+id/btnTenant" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btnBuilding"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Building"
-        app:layout_constraintEnd_toEndOf="@+id/button2"
-        app:layout_constraintStart_toStartOf="@+id/button2"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        app:layout_constraintEnd_toEndOf="@+id/btnContractor"
+        app:layout_constraintStart_toStartOf="@+id/btnContractor"
+        app:layout_constraintTop_toBottomOf="@+id/btnContractor" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/btnMaintenance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="MAINTENANCE ISSUES"
-        app:layout_constraintEnd_toEndOf="@+id/button3"
-        app:layout_constraintStart_toStartOf="@+id/button3"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
+        app:layout_constraintEnd_toEndOf="@+id/btnBuilding"
+        app:layout_constraintStart_toStartOf="@+id/btnBuilding"
+        app:layout_constraintTop_toBottomOf="@+id/btnBuilding" />
 </androidx.constraintlayout.widget.ConstraintLayout>
