@@ -3,9 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/ic_baseline_image_24.xml" value="0.191" />
+        <entry key="app/src/main/res/layout/activity_defect_post.xml" value="0.1984375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1984375" />
-        <entry key="app/src/main/res/layout/activity_manager_dashboard.xml" value="0.2" />
-        <entry key="app/src/main/res/layout/property.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/activity_manager_dashboard.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/activity_splash.xml" value="0.1984375" />
+        <entry key="app/src/main/res/layout/add_building.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/add_maintenance_request.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/add_property_manager.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/add_tenant.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_property.xml" value="0.1984375" />
+        <entry key="app/src/main/res/layout/property.xml" value="0.1984375" />
       </map>
     </option>
   </component>
