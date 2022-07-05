@@ -205,19 +205,12 @@ public class DefectPostActivity extends AppCompatActivity {
                                     while (!uriTask.isSuccessful()) ;
                                     // get the link of image
                                     downloadUri = uriTask.getResult().toString();
-                                    Toast
-                                            .makeText(DefectPostActivity.this,
-                                                    downloadUri,
-                                                    Toast.LENGTH_SHORT)
-                                            .show();
+//                                    Toast
+//                                            .makeText(DefectPostActivity.this,
+//                                                    downloadUri,
+//                                                    Toast.LENGTH_SHORT)
+//                                            .show();
 
-//                                    DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Image");
-//                                    HashMap<String, String> map = new HashMap<>();
-//                                    map.put("imagelink", downloadUri);
-//                                    reference1.child("" + System.currentTimeMillis()).setValue(map);
-
-                                    // Image uploaded successfully
-                                    // Dismiss dialog
                                     progressDialog.dismiss();
                                     Toast
                                             .makeText(DefectPostActivity.this,
@@ -267,9 +260,16 @@ public class DefectPostActivity extends AppCompatActivity {
         String houseNumber = mainBind.houseNumberET.getText().toString().trim();
 
         uploadImage();
-        defect = new Defect(defectDescription, downloadUri, buildingName, houseNumber);
+        defect = new Defect(defectDescription, buildingName, houseNumber);
+        defect.setImageUri(downloadUri);
+
+        Toast
+                .makeText(DefectPostActivity.this,
+                        downloadUri,
+                        Toast.LENGTH_SHORT)
+                .show();
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getInstance().getReference("defects");
+        DatabaseReference databaseReference = firebaseDatabase.getReference().child("defects");
         databaseReference.push().setValue(defect);
 
 
