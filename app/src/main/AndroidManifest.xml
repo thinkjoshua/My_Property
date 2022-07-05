@@ -29,7 +29,7 @@
             android:name=".ui.PropertiesActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.DefectPostActivity"
             android:exported="false" />
         <activity
             android:name=".ui.ManagerDashboardActivity"
@@ -38,7 +38,7 @@
             android:name=".ui.SplashActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.DefectPostActivity"
+            android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
