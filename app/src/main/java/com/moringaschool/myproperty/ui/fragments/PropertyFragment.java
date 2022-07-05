@@ -57,6 +57,11 @@ public class PropertyFragment extends Fragment {
             public void onClick(View v) {
                 FragmentManager fm = getParentFragmentManager();
                 TenantDialogFragment fragment = new TenantDialogFragment();
+
+                Bundle args = new Bundle();
+                args.putSerializable("property" , property);
+                fragment.setArguments(args);
+
                 fragment.show(getParentFragmentManager(),"Tenant Dialog");
             }
         });
