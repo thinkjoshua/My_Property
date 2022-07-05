@@ -19,11 +19,14 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.moringaschool.myproperty.R;
 import com.moringaschool.myproperty.databinding.ActivityDefectPostBinding;
+
+import java.util.HashMap;
 import java.util.UUID;
 import android.graphics.Bitmap;
 import com.google.firebase.FirebaseApp;
@@ -40,24 +43,22 @@ public class DefectPostActivity extends AppCompatActivity {
     private final int PICK_IMAGE_REQUEST = 22;
     ActivityDefectPostBinding mainBind;
     Uri image_uri;
+    String downloadUri;
+
     Defect defect;
     FirebaseStorage storage;
     StorageReference storageReference;
     AutoCompleteTextView buildingNameET;
     AutoCompleteTextView tenantNameET;
 
-    String[]tenants={"linet", "muvaka", "maryanne", "jackie", "collins", "joshua"}; //tenants
-    String[]buildings=new String[]{"Ndemi Apartments", "Mideya Garden Apartments", "Urban Oasis", "West Heights"}; //various buildings managed by the manager
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mainBind = ActivityDefectPostBinding.inflate(getLayoutInflater());
         setContentView(mainBind.getRoot());
-
         FirebaseApp.initializeApp(this);
-        mainBind.buildingNameET.setAdapter(new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, buildings));
-//        mainBind.tenantNameET.setAdapter(new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, tenants));
+
         // get the Firebase  storage reference
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
@@ -69,7 +70,6 @@ public class DefectPostActivity extends AppCompatActivity {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED ||
                             checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-
                         //Permission not enabled, request it
                         String[] permission = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
                         //SHOW POPUP TO REQUEST PERMISSIONS
@@ -96,7 +96,6 @@ public class DefectPostActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Please insert all input fields", Toast.LENGTH_SHORT).show();
                 } else {
                     saveDefect();
-
                 }
             }
         });
@@ -127,30 +126,19 @@ public class DefectPostActivity extends AppCompatActivity {
                 PICK_IMAGE_REQUEST);
     }
 
+
 //    // Override onActivityResult method
 //    @Override
-//    protected void onActivityResult(int requestCode,
-//                                    int resultCode,
-//                                    Intent data)
-//    {
-//
-//        super.onActivityResult(requestCode,
-//                resultCode,
-//                data);
-//
+//    protected void onActivityResult(int requestCode,int resultCode,Intent data){
+//        super.onActivityResult(requestCode,resultCode,data);
 //        // checking request code and result code
 //        // if request code is PICK_IMAGE_REQUEST and
 //        // resultCode is RESULT_OK
 //        // then set image in the image view
-//        if (requestCode == PICK_IMAGE_REQUEST
-//                && resultCode == RESULT_OK
-//                && data != null
-//                && data.getData() != null) {
-//
+//        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
 //            // Get the Uri of data
 //            image_uri = data.getData();
 //            try {
-//
 //                // Setting image on image view using Bitmap
 //                Bitmap bitmap = MediaStore
 //                        .Images
@@ -160,7 +148,6 @@ public class DefectPostActivity extends AppCompatActivity {
 //                                image_uri);
 //                mainBind.imageView.setImageBitmap(bitmap);
 //            }
-//
 //            catch (IOException e) {
 //                // Log the exception
 //                e.printStackTrace();
@@ -195,23 +182,6 @@ public class DefectPostActivity extends AppCompatActivity {
             mainBind.imageView.setImageURI(image_uri);
         }
     }
-
-    private void saveDefect() {
-        String defectDescription = mainBind.defectDescriptionEditText.getText().toString().trim();
-        String buildingName = mainBind.buildingNameET.getText().toString().trim();
-        String houseNumber = mainBind.houseNumberET.getText().toString().trim();
-        String stringUri = image_uri.toString();
-        defect = new Defect(defectDescription, 1, stringUri, buildingName, houseNumber);
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getInstance().getReference("defects");
-
-//        databaseReference.child(defect.getDefect_id().setValue(defect);
-//        databaseReference.child().setValue(defect);
-        uploadImage();
-        databaseReference.setValue(defect);
-
-    }
-
     private void uploadImage() {
         if (image_uri != null) {
 
@@ -222,21 +192,29 @@ public class DefectPostActivity extends AppCompatActivity {
             progressDialog.show();
 
             // Defining the child of storageReference
-            StorageReference ref
-                    = storageReference
-                    .child(
-                            "images/"
-                                    + UUID.randomUUID().toString());
-
+            StorageReference ref = storageReference.child("images/"+ UUID.randomUUID().toString());
             // adding listeners on upload
             // or failure of image
             ref.putFile(image_uri)
-                    .addOnSuccessListener(
-                            new OnSuccessListener<UploadTask.TaskSnapshot>() {
-
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(
                                         UploadTask.TaskSnapshot taskSnapshot) {
+
+                                    Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                                    while (!uriTask.isSuccessful()) ;
+                                    // get the link of image
+                                    downloadUri = uriTask.getResult().toString();
+                                    Toast
+                                            .makeText(DefectPostActivity.this,
+                                                    downloadUri,
+                                                    Toast.LENGTH_SHORT)
+                                            .show();
+
+//                                    DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Image");
+//                                    HashMap<String, String> map = new HashMap<>();
+//                                    map.put("imagelink", downloadUri);
+//                                    reference1.child("" + System.currentTimeMillis()).setValue(map);
 
                                     // Image uploaded successfully
                                     // Dismiss dialog
@@ -280,6 +258,22 @@ public class DefectPostActivity extends AppCompatActivity {
                                 }
                             });
         }
+    }
+
+
+    private void saveDefect() {
+        String defectDescription = mainBind.defectDescriptionEditText.getText().toString().trim();
+        String buildingName = mainBind.buildingNameET.getText().toString().trim();
+        String houseNumber = mainBind.houseNumberET.getText().toString().trim();
+
+        uploadImage();
+        defect = new Defect(defectDescription, downloadUri, buildingName, houseNumber);
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = firebaseDatabase.getInstance().getReference("defects");
+        databaseReference.push().setValue(defect);
+
+
+
     }
 
 }
