@@ -40,7 +40,7 @@ public class PropertiesActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         managerName = intent.getStringExtra("managerName");
-        call1 = calls.getManagerProperties(managerName);
+        call1 = calls.getManagerProperties("charles");
 
         call1.enqueue(new Callback<List<Property>>() {
             @Override
