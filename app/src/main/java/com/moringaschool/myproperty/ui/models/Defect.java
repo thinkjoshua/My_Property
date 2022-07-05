@@ -18,11 +18,11 @@ public class Defect {
         this.houseNumber = houseNumber;
     }
 
-    public Defect(String description, String building, String houseNumber) {
-        this.description = description;
-        this.building = building;
-        this.houseNumber = houseNumber;
-    }
+//    public Defect(String description, String building, String houseNumber) {
+//        this.description = description;
+//        this.building = building;
+//        this.houseNumber = houseNumber;
+//    }
 
     public Defect(String description,  String stingUri, String building, String houseNumber) {
         this.description = description;
