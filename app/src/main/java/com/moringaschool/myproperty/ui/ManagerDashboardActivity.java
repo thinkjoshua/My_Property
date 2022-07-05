@@ -25,5 +25,13 @@ public class ManagerDashboardActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        mainBind.btnGetDefects.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ManagerDashboardActivity.this, DefectActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
