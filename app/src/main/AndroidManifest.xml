@@ -32,13 +32,13 @@
             android:name=".ui.DefectPostActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.ManagerDashboardActivity"
+            android:name=".ui.MainActivity"
             android:exported="false" />
         <activity
             android:name=".ui.SplashActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.ManagerDashboardActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
