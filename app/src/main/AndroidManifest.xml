@@ -19,19 +19,19 @@
             android:name=".ui.PropertyDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.AddManagerActivity"
+            android:name=".ui.ManagerDashboardActivity"
             android:exported="false" />
         <activity
             android:name=".ui.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.ManagerDashboardActivity"
+            android:name=".ui.PropertiesActivity"
             android:exported="false" />
         <activity
             android:name=".ui.SplashActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.PropertiesActivity"
+            android:name=".ui.AddManagerActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
