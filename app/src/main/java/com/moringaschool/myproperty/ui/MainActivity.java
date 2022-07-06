@@ -19,5 +19,6 @@ public class MainActivity extends AppCompatActivity {
         mainBind = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(mainBind.getRoot());
 
+        setContentView(R.layout.activity_manager_dashboard);
     }
 }
