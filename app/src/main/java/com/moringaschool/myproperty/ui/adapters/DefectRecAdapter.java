@@ -9,10 +9,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.moringaschool.myproperty.R;
 import com.moringaschool.myproperty.ui.models.Defect;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -59,7 +59,10 @@ public class DefectRecAdapter extends RecyclerView.Adapter<DefectRecAdapter.myHo
         public void setData(Defect defect){
             name.setText(defect.getBuilding());
             description.setText(defect.getDescription());
-            Picasso.get().load(defect.getImageUri()).into(img);
+            Glide.with(cont)
+                    .asBitmap()
+                    .load(defect.getStingUri())
+                    .into(img);
         }
     }
 }
