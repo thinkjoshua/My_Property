@@ -11,4 +11,7 @@
     <color name="neon_orange">#FF5F1F</color>
     <color name="lime_green">#40A316</color>
     <color name="peach">#FFDCAA</color>
+    <color name="matte_grey">#98989c</color>
+    <color name="light_peach">#FFF1DD</color>
+    <color name="navy_blue">#000000</color>
 </resources>
