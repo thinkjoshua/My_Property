@@ -20,14 +20,17 @@
         android:theme="@style/Theme.MyProperty"
         tools:targetApi="31">
         <activity
-            android:name=".ui.DefectActivity"
+
+            android:name=".ManagerDashboardActivity2"
+            android:exported="false" />
+        <activity
+            android:name=".ui.PropertyDetailsActivity"
+
             android:exported="false" />
         <activity
             android:name=".ui.AddManagerActivity"
             android:exported="false" />
-        <activity
-            android:name=".ui.PropertyDetailsActivity"
-            android:exported="false" />
+       
         <activity
             android:name=".ui.PropertiesActivity"
             android:exported="false" />
