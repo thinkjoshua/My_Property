@@ -1,5 +1,6 @@
 package com.moringaschool.myproperty.ui;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -7,11 +8,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.moringaschool.myproperty.databinding.AddPropertyManagerBinding;
-import com.moringaschool.myproperty.ui.api.ApiCalls;
-import com.moringaschool.myproperty.ui.api.RetrofitClient;
-import com.moringaschool.myproperty.ui.models.Property;
-import com.moringaschool.myproperty.ui.models.PropertyManager;
+import com.moringaschool.myproperty.api.ApiCalls;
+import com.moringaschool.myproperty.api.RetrofitClient;
+import com.moringaschool.myproperty.models.Property;
+import com.moringaschool.myproperty.models.PropertyManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,6 +29,9 @@ public class AddManagerActivity extends AppCompatActivity implements View.OnClic
     AddPropertyManagerBinding addBind;
     Call<PropertyManager> call1;
     Call<Property> call2;
+    FirebaseAuth myAuth;
+    FirebaseAuth.AuthStateListener myAuthListener;
+    DatabaseReference ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +40,8 @@ public class AddManagerActivity extends AppCompatActivity implements View.OnClic
         setContentView(addBind.getRoot());
 
         addBind.submit.setOnClickListener(this);
+        myAuth = FirebaseAuth.getInstance();
+        ref = FirebaseDatabase.getInstance().getReference();
 
     }
 
@@ -38,12 +51,14 @@ public class AddManagerActivity extends AppCompatActivity implements View.OnClic
 
         String name = addBind.managerName.getEditText().getText().toString().trim();
         String number = addBind.managerPhone.getEditText().getText().toString().trim();
-        String email = addBind.managerEmail.getEditText().getText().toString();
-        String propertyName = addBind.managerHouseName.getEditText().getText().toString();
-        String propertyDescription = addBind.propertyDescription.getEditText().getText().toString();
+        String email = addBind.managerEmail.getEditText().getText().toString().trim();
+        String propertyName = addBind.managerHouseName.getEditText().getText().toString().trim();
+        String propertyDescription = addBind.propertyDescription.getEditText().getText().toString().trim();
+        String password = addBind.propertyManagerPassword.getEditText().getText().toString().trim();
 
         PropertyManager manager = new PropertyManager(name, number, email, propertyName, propertyDescription);
         Property property = new Property(propertyName, name);
+
 
         call1 = calls.addManager(manager);
         call2 = calls.addProperty(property);
@@ -85,10 +100,20 @@ public class AddManagerActivity extends AppCompatActivity implements View.OnClic
             }
         });
 
-        Intent intent = new Intent(AddManagerActivity.this, PropertiesActivity.class);
-        intent.putExtra("managerName", name);
-        startActivity(intent);
 
+        myAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(AddManagerActivity.this, "User created successfully", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(AddManagerActivity.this, ManagerDashboardActivity.class);
+                    intent.putExtra("managerName", name);
+                    startActivity(intent);
+
+                }
+
+            }
+        });
 
     }
 

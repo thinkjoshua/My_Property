@@ -7,12 +7,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.moringaschool.myproperty.R;
 import com.moringaschool.myproperty.databinding.ActivityPropertiesBinding;
-import com.moringaschool.myproperty.ui.adapters.PropertyRecAdapter;
-import com.moringaschool.myproperty.ui.api.ApiCalls;
-import com.moringaschool.myproperty.ui.api.RetrofitClient;
-import com.moringaschool.myproperty.ui.models.Property;
+import com.moringaschool.myproperty.adapters.PropertyRecAdapter;
+import com.moringaschool.myproperty.api.ApiCalls;
+import com.moringaschool.myproperty.api.RetrofitClient;
+import com.moringaschool.myproperty.models.Property;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +39,7 @@ public class PropertiesActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         managerName = intent.getStringExtra("managerName");
-        call1 = calls.getManagerProperties("charles");
+        call1 = calls.getManagerProperties(managerName);
 
         call1.enqueue(new Callback<List<Property>>() {
             @Override

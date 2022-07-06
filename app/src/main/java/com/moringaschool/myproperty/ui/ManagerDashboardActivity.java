@@ -9,7 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-public class ManagerDashboardActivity extends AppCompatActivity {
+public class ManagerDashboardActivity extends AppCompatActivity implements View.OnClickListener{
     ActivityManagerDashboardBinding mainBind;
 
     @Override
@@ -18,20 +18,16 @@ public class ManagerDashboardActivity extends AppCompatActivity {
         mainBind = ActivityManagerDashboardBinding.inflate(getLayoutInflater());
         setContentView(mainBind.getRoot());
 
-        mainBind.btnMaintenance.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ManagerDashboardActivity.this, DefectPostActivity.class);
-                startActivity(intent);
-            }
-        });
+        mainBind.listOfPropertiesCard.setOnClickListener(this);
+    }
 
-        mainBind.btnGetDefects.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ManagerDashboardActivity.this, DefectActivity.class);
-                startActivity(intent);
-            }
-        });
+    @Override
+    public void onClick(View v) {
+        if (v == mainBind.listOfPropertiesCard){
+            startActivity(new Intent(ManagerDashboardActivity.this, PropertiesActivity.class));
+        }else if (v == mainBind.maintenanceRequestCard){
+            startActivity(new Intent(ManagerDashboardActivity.this, DefectActivity.class));
+        }
+
     }
 }

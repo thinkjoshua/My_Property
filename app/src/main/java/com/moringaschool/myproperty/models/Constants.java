@@ -1,4 +1,4 @@
-package com.moringaschool.myproperty.ui.models;
+package com.moringaschool.myproperty.models;
 
 public class Constants {
 
