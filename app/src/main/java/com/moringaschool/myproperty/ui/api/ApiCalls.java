@@ -2,6 +2,7 @@ package com.moringaschool.myproperty.ui.api;
 
 import com.moringaschool.myproperty.ui.models.Property;
 import com.moringaschool.myproperty.ui.models.PropertyManager;
+import com.moringaschool.myproperty.ui.models.Tenant;
 
 import java.util.List;
 
@@ -30,6 +31,12 @@ public interface ApiCalls {
     @GET("/managerProperties/{managerName}")
     Call<List<Property>> getManagerProperties(
             @Path("managerName") String managerName
+    );
+
+    //add a tenant
+    @POST("/tenant")
+    Call<Tenant> addTenant(
+            @Body Tenant tenant
     );
 
 }

@@ -19,20 +19,14 @@
 
 
             <ImageView
+                android:layout_gravity="center"
                 android:id="@+id/logoTenant"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
                 android:src="@drawable/whitelogo"
                 android:contentDescription="Logo Tenant" />
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/eb_garamond"
-                android:text="ADD TENANT"
-                android:textColor="@color/blue"
-                android:textSize="32sp" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -46,31 +40,18 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Tenant's Username">
+                    >
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:hint="Tenant's Full Name"
                         android:ems="10"
                         android:inputType="textPersonName" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/editTextTextPersonName"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:hint="Name">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textPersonName" />
-
-                </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/editTextPhone"
@@ -139,6 +120,7 @@
 
 
                 <Button
+                    android:id="@+id/addTenant"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
@@ -146,7 +128,7 @@
                     android:layout_marginBottom="5dp"
                     android:background="#000000"
                     android:elevation="0dp"
-                    android:text="Login" />
+                    android:text="Add Tenant" />
 
             </LinearLayout>
 
