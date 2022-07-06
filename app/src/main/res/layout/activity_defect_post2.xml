@@ -23,8 +23,8 @@
             android:textSize="30sp"
             android:textStyle="bold"
             android:fontFamily="@font/lato_bold"
-            android:textColor="@color/blue"
-            la
+            android:textColor="@color/blue"/>
+
 
 
 
