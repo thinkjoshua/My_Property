@@ -7,6 +7,8 @@
         <entry key="app/src/main/res/layout/activity_defect_post.xml" value="0.1984375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1984375" />
         <entry key="app/src/main/res/layout/activity_manager_dashboard.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/activity_properties.xml" value="0.1984375" />
+        <entry key="app/src/main/res/layout/activity_property_details.xml" value="0.1984375" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.1984375" />
         <entry key="app/src/main/res/layout/add_building.xml" value="0.25" />
         <entry key="app/src/main/res/layout/add_maintenance_request.xml" value="0.33" />
