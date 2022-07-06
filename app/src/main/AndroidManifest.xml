@@ -20,17 +20,16 @@
         android:theme="@style/Theme.MyProperty"
         tools:targetApi="31">
         <activity
-            android:name=".DefectPostActivity2"
-            android:exported="false" />
-        <activity
-            android:name=".ManagerDashboardActivity2"
+            android:name=".ui.ManagerDashboardActivity2"
             android:exported="false" />
         <activity
             android:name=".ui.PropertyDetailsActivity"
+
             android:exported="false" />
         <activity
             android:name=".ui.AddManagerActivity"
             android:exported="false" />
+
         <activity
             android:name=".ui.PropertiesActivity"
             android:exported="false" />
@@ -41,15 +40,13 @@
             android:name=".ui.MainActivity"
             android:exported="false" />
         <activity
-
-            android:name=".ui.SplashActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.ManagerDashboardActivity"
             android:exported="false" />
 
+        <activity android:name=".ui.LoginActivity"
+            android:exported="false"/>
         <activity
-            android:name=".ui.LoginActivity"
+            android:name=".ui.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -62,5 +59,4 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
-
 </manifest>
