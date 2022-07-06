@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Toast;
 
@@ -18,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.moringaschool.myproperty.databinding.AddPropertyManagerBinding;
 import com.moringaschool.myproperty.api.ApiCalls;
 import com.moringaschool.myproperty.api.RetrofitClient;
+import com.moringaschool.myproperty.models.Constants;
 import com.moringaschool.myproperty.models.Property;
 import com.moringaschool.myproperty.models.PropertyManager;
 
@@ -32,12 +35,17 @@ public class AddManagerActivity extends AppCompatActivity implements View.OnClic
     FirebaseAuth myAuth;
     FirebaseAuth.AuthStateListener myAuthListener;
     DatabaseReference ref;
+    SharedPreferences myData;
+    SharedPreferences.Editor myDataEditor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addBind = AddPropertyManagerBinding.inflate(getLayoutInflater());
         setContentView(addBind.getRoot());
+
+        myData = PreferenceManager.getDefaultSharedPreferences(this);
+        myDataEditor = myData.edit();
 
         addBind.submit.setOnClickListener(this);
         myAuth = FirebaseAuth.getInstance();
@@ -55,6 +63,8 @@ public class AddManagerActivity extends AppCompatActivity implements View.OnClic
         String propertyName = addBind.managerHouseName.getEditText().getText().toString().trim();
         String propertyDescription = addBind.propertyDescription.getEditText().getText().toString().trim();
         String password = addBind.propertyManagerPassword.getEditText().getText().toString().trim();
+
+        myDataEditor.putString(Constants.NAME, name).apply();
 
         PropertyManager manager = new PropertyManager(name, number, email, propertyName, propertyDescription);
         Property property = new Property(propertyName, name);
@@ -85,7 +95,19 @@ public class AddManagerActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onResponse(Call<Property> call, Response<Property> response) {
                 if (response.isSuccessful()){
-                    Toast.makeText(AddManagerActivity.this, "Kuja Wewe", Toast.LENGTH_SHORT).show();
+
+                    myAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+                        if (task.isSuccessful()){
+
+                            Intent intent = new Intent(AddManagerActivity.this, ManagerDashboardActivity.class);
+                            intent.putExtra("managerName", name);
+                            Toast.makeText(AddManagerActivity.this, "User created successfully "+name, Toast.LENGTH_SHORT).show();
+
+                            startActivity(intent);
+                            Toast.makeText(AddManagerActivity.this, "Kuja Wewe", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
 
                 }else{
                     Toast.makeText(AddManagerActivity.this, "Sema Kabisa", Toast.LENGTH_SHORT).show();
@@ -100,22 +122,5 @@ public class AddManagerActivity extends AppCompatActivity implements View.OnClic
             }
         });
 
-
-        myAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-                    Toast.makeText(AddManagerActivity.this, "User created successfully", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(AddManagerActivity.this, ManagerDashboardActivity.class);
-                    intent.putExtra("managerName", name);
-                    startActivity(intent);
-
-                }
-
-            }
-        });
-
     }
-
-
 }
