@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -32,7 +33,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PropertiesActivity extends AppCompatActivity {
+public class PropertiesActivity extends AppCompatActivity implements View.OnClickListener {
     ActivityPropertiesBinding properBind;
     List<Property> allProperties;
     PropertyRecAdapter adapter;
@@ -51,6 +52,9 @@ public class PropertiesActivity extends AppCompatActivity {
 
         ref = FirebaseDatabase.getInstance().getReference("defects");
         pref = PreferenceManager.getDefaultSharedPreferences(this);
+
+        properBind.add.setOnClickListener(this);
+        properBind.add2.setOnClickListener(this);
 
 
         allProperties = new ArrayList<>();
@@ -108,6 +112,19 @@ public class PropertiesActivity extends AppCompatActivity {
 
 
 
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == properBind.add){
+            Intent intent = new Intent(PropertiesActivity.this, AddManagerActivity.class);
+            startActivity(intent);
+        }else
+        if (v == properBind.add2){
+            Intent intent = new Intent(PropertiesActivity.this, DefectPostActivity.class);
+            startActivity(intent);
+        }
 
     }
 }
