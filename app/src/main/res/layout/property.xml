@@ -11,7 +11,6 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/image"
-        
         app:shapeAppearanceOverlay="@style/radii"
         android:src="@drawable/property"
         android:scaleType="centerCrop"
