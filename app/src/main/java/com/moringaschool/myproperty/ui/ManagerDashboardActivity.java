@@ -32,6 +32,7 @@ public class ManagerDashboardActivity extends AppCompatActivity implements View.
         Toast.makeText(this, managerName, Toast.LENGTH_SHORT).show();
 
         mainBind.listOfPropertiesCard.setOnClickListener(this);
+        mainBind.maintenanceRequestCard.setOnClickListener(this);
     }
 
     @Override
