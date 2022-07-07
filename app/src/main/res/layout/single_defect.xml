@@ -25,7 +25,9 @@
         android:id="@+id/name"
         android:text="Welcome home"
         android:textStyle="bold"
-        android:textSize="20sp"
+        android:textSize="15sp"
+        android:textColor="@color/blue"
+        android:layout_marginStart="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/animation_view"
         android:layout_width="wrap_content"
@@ -40,6 +42,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         app:layout_constraintTop_toBottomOf="@id/name"
+        app:layout_constraintStart_toStartOf="@id/name"
         app:layout_constraintRight_toLeftOf="@id/animation_view"
         app:layout_constraintBottom_toBottomOf="parent"
         />
