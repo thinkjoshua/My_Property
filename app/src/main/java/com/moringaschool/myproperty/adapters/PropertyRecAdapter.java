@@ -16,6 +16,7 @@ import com.moringaschool.myproperty.models.Property;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Locale;
 
 public class PropertyRecAdapter extends RecyclerView.Adapter<PropertyRecAdapter.myHolder> {
 
@@ -70,7 +71,7 @@ public class PropertyRecAdapter extends RecyclerView.Adapter<PropertyRecAdapter.
 
         public void setPropertyData(Property property){
 
-            name.setText(property.getProperty_name());
+            name.setText(property.getProperty_name().toUpperCase());
 //            description.setText("This property belongs to: " + property.getManager_name());
 
         }
