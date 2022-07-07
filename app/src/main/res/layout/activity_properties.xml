@@ -70,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Hey, Collins"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:textColor="@color/white"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -82,6 +82,7 @@
             android:layout_height="wrap_content"
             android:text="Type the name of the apartment you would like to find"
             android:textColor="@color/white"
+            android:textSize="12sp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="@id/manager_name"
             app:layout_constraintTop_toBottomOf="@id/manager_name"/>
