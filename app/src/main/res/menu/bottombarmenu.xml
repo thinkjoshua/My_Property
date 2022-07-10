@@ -4,13 +4,13 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
 
 <item
     android:id="@+id/home"
-    android:title="Home"
+    android:title="Report Defect"
     android:icon="@drawable/ic_baseline_home_24"
     app:showAsAction="ifRoom"/>
 
 <item
-    android:id="@+id/education"
-    android:title="My Neighbours"
+    android:id="@+id/move"
+    android:title="Move Out Notice"
     android:icon="@drawable/ic_baseline_people_24"
     app:showAsAction="ifRoom"/>
 
