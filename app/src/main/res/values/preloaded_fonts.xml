@@ -3,6 +3,8 @@
     <array name="preloaded_fonts" translatable="false">
         <item>@font/candal</item>
         <item>@font/eb_garamond</item>
+        <item>@font/lato</item>
+        <item>@font/lato_bold</item>
         <item>@font/lato_thin</item>
     </array>
 </resources>
