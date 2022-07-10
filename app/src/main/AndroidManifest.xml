@@ -14,16 +14,16 @@
         android:theme="@style/Theme.MyProperty"
         tools:targetApi="31" >
         <activity
-            android:name=".SelectActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.TenantDefectActivity"
+            android:name=".ui.MainActivity"
             android:exported="false" />
         <activity
             android:name=".ui.TenantLoginActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.SelectActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.TenantDefectActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
