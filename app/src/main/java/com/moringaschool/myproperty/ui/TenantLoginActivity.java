@@ -15,7 +15,7 @@ public class TenantLoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tenant_login);
         //AUTHENTICATE TENANT
         //START NEW INTENT IF SUCCESSFULL
-        Intent intent = new Intent(TenantLoginActivity.this, TenantDefectActivity.class);
+        Intent intent = new Intent(TenantLoginActivity.this, TenantDashboardActivity.class);
         startActivity(intent);
 
     }
