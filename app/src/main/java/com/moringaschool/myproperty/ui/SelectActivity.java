@@ -20,7 +20,7 @@ public class SelectActivity extends AppCompatActivity {
         binding.managerRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(SelectActivity.this, LoginActivity.class);
+//                Intent intent = new Intent(SelectActivity.this, ManagerLoginActivity.class);
 //                startActivity(intent);
             }
         });
