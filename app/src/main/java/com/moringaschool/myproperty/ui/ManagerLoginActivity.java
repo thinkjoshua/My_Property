@@ -8,10 +8,9 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.moringaschool.myproperty.R;
 import com.moringaschool.myproperty.databinding.ActivityLoginBinding;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
+public class ManagerLoginActivity extends AppCompatActivity implements View.OnClickListener{
     ActivityLoginBinding logBind;
     FirebaseAuth myAuth;
 
@@ -31,7 +30,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         if (v == logBind.addManager){
-            Intent intent = new Intent(LoginActivity.this, AddManagerActivity.class);
+            Intent intent = new Intent(ManagerLoginActivity.this, AddManagerActivity.class);
             startActivity(intent);
         }else if(v == logBind.login){
             login();
@@ -45,7 +44,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         myAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(task -> {
             if (task.isSuccessful()){
-                Intent intent = new Intent(LoginActivity.this, ManagerDashboardActivity.class);
+                Intent intent = new Intent(ManagerLoginActivity.this, ManagerDashboardActivity.class);
                 startActivity(intent);
             }
         });
