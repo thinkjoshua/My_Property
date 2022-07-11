@@ -32,12 +32,13 @@ public class ManagerDashboardActivity extends AppCompatActivity implements View.
         Toast.makeText(this, managerName, Toast.LENGTH_SHORT).show();
 
         mainBind.listOfPropertiesCard.setOnClickListener(this);
+        mainBind.maintenanceRequestCard.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         if (v == mainBind.listOfPropertiesCard){
-            Intent intent =  new Intent(ManagerDashboardActivity.this, PropertiesActivity.class);
+            Intent intent =  new Intent(ManagerDashboardActivity.this, DefectActivity.class);
             intent.putExtra("managerName", managerName);
             startActivity(intent);
         }else if (v == mainBind.maintenanceRequestCard){

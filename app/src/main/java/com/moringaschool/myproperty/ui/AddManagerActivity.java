@@ -1,6 +1,5 @@
 package com.moringaschool.myproperty.ui;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -10,11 +9,7 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.moringaschool.myproperty.databinding.AddPropertyManagerBinding;
@@ -23,6 +18,8 @@ import com.moringaschool.myproperty.api.RetrofitClient;
 import com.moringaschool.myproperty.models.Constants;
 import com.moringaschool.myproperty.models.Property;
 import com.moringaschool.myproperty.models.PropertyManager;
+
+import java.io.Serializable;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,6 +34,11 @@ public class AddManagerActivity extends AppCompatActivity implements View.OnClic
     DatabaseReference ref;
     SharedPreferences myData;
     SharedPreferences.Editor myDataEditor;
+    Property property;
+    PropertyManager manager;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,20 +57,22 @@ public class AddManagerActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onClick(View v) {
+
         ApiCalls calls = RetrofitClient.getClient();
 
         String name = addBind.managerName.getEditText().getText().toString().trim();
         String number = addBind.managerPhone.getEditText().getText().toString().trim();
         String email = addBind.managerEmail.getEditText().getText().toString().trim();
         String propertyName = addBind.managerHouseName.getEditText().getText().toString().trim();
-        String propertyDescription = addBind.propertyDescription.getEditText().getText().toString().trim();
+        String propertyLocation = addBind.propertyDescription.getEditText().getText().toString().trim();
         String password = addBind.propertyManagerPassword.getEditText().getText().toString().trim();
 
         myDataEditor.putString(Constants.NAME, name).apply();
+        myDataEditor.putString(Constants.PHONE_NUMBER, number).apply();
+        myDataEditor.putString(Constants.EMAIL, email).apply();
 
-        PropertyManager manager = new PropertyManager(name, number, email, propertyName, propertyDescription);
-        Property property = new Property(propertyName, name);
-
+        manager = new PropertyManager(name, number, email);
+        property = new Property(propertyName, name, propertyLocation);
 
         call1 = calls.addManager(manager);
         call2 = calls.addProperty(property);
@@ -99,7 +103,7 @@ public class AddManagerActivity extends AppCompatActivity implements View.OnClic
                     myAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                         if (task.isSuccessful()){
 
-                            Intent intent = new Intent(AddManagerActivity.this, ManagerDashboardActivity.class);
+                            Intent intent = new Intent(AddManagerActivity.this, PropertiesActivity.class);
                             intent.putExtra("managerName", name);
                             Toast.makeText(AddManagerActivity.this, "User created successfully "+name, Toast.LENGTH_SHORT).show();
 
@@ -121,6 +125,5 @@ public class AddManagerActivity extends AppCompatActivity implements View.OnClic
 
             }
         });
-
     }
 }
