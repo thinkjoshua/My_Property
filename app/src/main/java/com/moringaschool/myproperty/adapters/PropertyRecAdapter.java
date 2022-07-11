@@ -11,12 +11,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.moringaschool.myproperty.R;
-import com.moringaschool.myproperty.ui.PropertyDetailsActivity;
 import com.moringaschool.myproperty.models.Property;
+import com.moringaschool.myproperty.ui.PropertyDetailsActivity;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Locale;
 
 public class PropertyRecAdapter extends RecyclerView.Adapter<PropertyRecAdapter.myHolder> {
 
