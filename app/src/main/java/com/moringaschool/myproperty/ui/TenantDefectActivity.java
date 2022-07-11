@@ -9,11 +9,13 @@ import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Toast;
@@ -32,6 +34,7 @@ import com.google.firebase.storage.UploadTask;
 import com.moringaschool.myproperty.R;
 import com.moringaschool.myproperty.databinding.ActivityDefectPostBinding;
 import com.moringaschool.myproperty.databinding.ActivityTenantDefectBinding;
+import com.moringaschool.myproperty.models.Constants;
 import com.moringaschool.myproperty.models.Defect;
 
 import java.io.IOException;
@@ -49,12 +52,17 @@ public class TenantDefectActivity extends AppCompatActivity {
     FirebaseStorage storage;
     StorageReference storageReference;
 
+    SharedPreferences pref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mainBind = ActivityTenantDefectBinding.inflate(getLayoutInflater());
         setContentView(mainBind.getRoot());
         FirebaseApp.initializeApp(this);
+
+        pref = PreferenceManager.getDefaultSharedPreferences(this);
+
 
         // get the Firebase  storage reference
         storage = FirebaseStorage.getInstance();
@@ -232,9 +240,10 @@ public class TenantDefectActivity extends AppCompatActivity {
         String houseNumber = mainBind.houseNumberET.getEditText().getText().toString().trim();
         defect = new Defect(defectDescription, buildingName, houseNumber,downloadUri);
         defect.setStingUri(downloadUri);
+
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getInstance().getReference("defects");
-        databaseReference.push().setValue(defect);
+        DatabaseReference databaseReference = firebaseDatabase.getReference("defects");
+        databaseReference.child(pref.getString(Constants.TENANT_ID,"")).child(defect.getStingUri()).setValue(defect);
     }
 
 }
