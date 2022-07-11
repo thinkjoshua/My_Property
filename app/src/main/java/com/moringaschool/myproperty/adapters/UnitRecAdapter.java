@@ -12,9 +12,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.moringaschool.myproperty.R;
 import com.moringaschool.myproperty.api.ApiCalls;
 import com.moringaschool.myproperty.api.RetrofitClient;
@@ -62,6 +66,7 @@ public class UnitRecAdapter extends RecyclerView.Adapter<UnitRecAdapter.myHolder
         Unit unit;
         Call<Tenant> call;
         ApiCalls calls;
+        Tenant tenant;
 
 
         public myHolder(@NonNull View itemView) {
@@ -102,13 +107,15 @@ public class UnitRecAdapter extends RecyclerView.Adapter<UnitRecAdapter.myHolder
                     String tenantPhone = phone.getEditText().getText().toString().trim();
                     String tenantEmail = email.getEditText().getText().toString().trim();
                     String tenantId = id.getEditText().getText().toString().trim();
+                    tenant = new Tenant(tenantName, tenantEmail,tenantPhone,tenantId,unit.getProperty_name(),unit.getUnit_name());
 
-                    Tenant tenant = new Tenant(tenantName, tenantEmail,tenantPhone,tenantId,unit.getProperty_name(),unit.getUnit_name());
                     call = calls.addTenant(tenant);
                     call.clone().enqueue(new Callback<Tenant>() {
                         @Override
                         public void onResponse(Call<Tenant> call, Response<Tenant> response) {
                             if (response.isSuccessful()){
+                                DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Tenants");
+                                ref.child(tenantId).setValue(tenant);
                                 tenantName1.setText(tenantName);
                                 tenantPhone2.setText(tenantPhone);
                                 Toast.makeText(cont, "Tenant successfully onboarded", Toast.LENGTH_SHORT).show();
@@ -123,6 +130,8 @@ public class UnitRecAdapter extends RecyclerView.Adapter<UnitRecAdapter.myHolder
 
                         }
                     });
+
+
 
                 }
             });

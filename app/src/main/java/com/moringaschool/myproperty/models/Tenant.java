@@ -1,17 +1,20 @@
 package com.moringaschool.myproperty.models;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 
 import java.text.DateFormat;
 import java.util.Objects;
 
-public class Tenant {
+public class Tenant implements Serializable {
 
     private int id;
     private String tenant_name,tenant_email, tenant_phone, tenant_id, property_name, unit_name, join_date;
     private Timestamp joined;
 
 
+    public Tenant() {
+    }
 
     public Tenant(String tenant_name, String tenant_email, String tenant_phone, String tenant_id, String property_name, String unit_name) {
         this.tenant_name = tenant_name;
@@ -100,7 +103,7 @@ public class Tenant {
     }
 
     public String getJoin_date() {
-        join_date = DateFormat.getDateTimeInstance().format(joined);
+//        join_date = DateFormat.getDateTimeInstance().format(joined);
         return join_date;
     }
 
