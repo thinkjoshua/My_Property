@@ -8,4 +8,5 @@ public class Constants {
     public static String EMAIL = "email";
     public static String PROPERTY_MANAGERS = "PropertyManagers";
     public static String TENANTS = "tenants";
+    public static String TENANT_ID = "tenant_id";
 }
