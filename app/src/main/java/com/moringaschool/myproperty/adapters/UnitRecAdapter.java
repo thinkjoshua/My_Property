@@ -115,7 +115,7 @@ public class UnitRecAdapter extends RecyclerView.Adapter<UnitRecAdapter.myHolder
                         public void onResponse(Call<Tenant> call, Response<Tenant> response) {
                             if (response.isSuccessful()){
                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Tenants");
-                                ref.child(tenantPhone).setValue(tenant);
+                                ref.child(tenantId).setValue(tenant);
                                 tenantName1.setText(tenantName);
                                 tenantPhone2.setText(tenantPhone);
                                 Toast.makeText(cont, "Tenant successfully onboarded", Toast.LENGTH_SHORT).show();
