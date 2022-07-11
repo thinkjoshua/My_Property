@@ -49,11 +49,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         String email = logBind.userEmail.getEditText().getText().toString().trim();
         String password = logBind.password.getEditText().getText().toString().trim();
-//        myDataEditor.putString(Constants.NAME,)
+
+        myDataEditor.putString(Constants.EMAIL, email).apply();
 
         myAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(task -> {
             if (task.isSuccessful()){
-                Intent intent = new Intent(LoginActivity.this, ManagerDashboardActivity.class);
+                Intent intent = new Intent(LoginActivity.this, PropertiesActivity.class);
                 startActivity(intent);
             }
         });

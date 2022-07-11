@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -53,6 +54,13 @@ public class DefectRecAdapter extends RecyclerView.Adapter<DefectRecAdapter.myHo
             name = itemView.findViewById(R.id.propertyName);
             description = itemView.findViewById(R.id.propertyDescription);
             img = itemView.findViewById(R.id.image);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(cont, "Coming Wait and Relax ", Toast.LENGTH_LONG).show();
+                }
+            });
 
         }
 

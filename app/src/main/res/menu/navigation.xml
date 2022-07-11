@@ -11,6 +11,11 @@
         android:title="Properties"/>
 
     <item
+        android:id="@+id/requests"
+        android:icon="@drawable/camera"
+        android:title="Done requests"/>
+
+    <item
         android:id="@+id/logout"
         android:icon="@drawable/logout"
         android:title="Logout"/>
