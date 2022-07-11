@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Toast;
 
@@ -18,10 +20,13 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.moringaschool.myproperty.R;
 import com.moringaschool.myproperty.databinding.ActivityTenantLoginBinding;
+import com.moringaschool.myproperty.models.Constants;
 
 public class TenantLoginActivity extends AppCompatActivity implements View.OnClickListener {
     ActivityTenantLoginBinding tenantBinding;
     DatabaseReference ref;
+    SharedPreferences pref;
+    SharedPreferences.Editor prefEditor;
 
 
     @Override
@@ -30,6 +35,8 @@ public class TenantLoginActivity extends AppCompatActivity implements View.OnCli
         tenantBinding = ActivityTenantLoginBinding.inflate(getLayoutInflater());
         setContentView(tenantBinding.getRoot());
 
+        pref = PreferenceManager.getDefaultSharedPreferences(this);
+        prefEditor = pref.edit();
         ref = FirebaseDatabase.getInstance().getReference().child("Tenants");
         tenantBinding.login.setOnClickListener(this);
 
@@ -45,13 +52,26 @@ public class TenantLoginActivity extends AppCompatActivity implements View.OnCli
             String tenantEmail = tenantBinding.userEmail.getEditText().getText().toString().trim();
             String tenantPassword = tenantBinding.password.getEditText().getText().toString().trim();
 
-            Query query = ref.orderByChild("tenant_email").equalTo(tenantEmail);
+            Query query = ref.orderByChild("tenant_id").equalTo(tenantPassword);
 
             query.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()){
-                        Toast.makeText(TenantLoginActivity.this, snapshot.getValue(String.class), Toast.LENGTH_SHORT).show();
+
+                        String emailFromDb = snapshot.child(tenantPassword).child("tenant_email").getValue(String.class);
+                        String tenantId = snapshot.child(tenantPassword).child("tenant_id").getValue(String.class);
+
+                        if (tenantEmail.equals(emailFromDb) && tenantPassword.equals(tenantId)){
+
+                            prefEditor.putString(Constants.TENANT_ID, tenantId).apply();
+                            Intent intent = new Intent(TenantLoginActivity.this, TenantDashboardActivity.class);
+                            startActivity(intent);
+
+                        }else{
+                            Toast.makeText(TenantLoginActivity.this, "Please check your credentials and login again", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
 
                 }
