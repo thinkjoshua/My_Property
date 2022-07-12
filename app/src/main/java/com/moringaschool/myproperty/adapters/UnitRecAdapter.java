@@ -67,9 +67,9 @@ public class UnitRecAdapter extends RecyclerView.Adapter<UnitRecAdapter.myHolder
         ImageView add, remove;
         BottomSheetDialog dialog;
         Unit unit;
-        Call<Tenant> call;
+        Call<Tenant> call, call1;
         ApiCalls calls;
-        Tenant tenant;
+        Tenant tenant, tenant1;
         SharedPreferences pref;
 
 
@@ -85,6 +85,8 @@ public class UnitRecAdapter extends RecyclerView.Adapter<UnitRecAdapter.myHolder
             pref = PreferenceManager.getDefaultSharedPreferences(cont);
 
 
+
+
             dialog = new BottomSheetDialog(cont);
             createDialog();
             add.setOnClickListener(this);
@@ -93,11 +95,24 @@ public class UnitRecAdapter extends RecyclerView.Adapter<UnitRecAdapter.myHolder
 
         }
 
+        public void setData(Unit unit){
+            name.setText(unit.getUnit_name());
+            tenantName1.setText("Vacant");
+            unitRooms.setText("This unit contains "+unit.getUnit_rooms() + " rooms");
+            this.unit = unit;
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (v == add){
+                dialog.show();
+            }
+        }
+
         private void createDialog() {
             View v = LayoutInflater.from(cont).inflate(R.layout.add_tenant, null, false);
 
 
-            calls = RetrofitClient.getClient();
 
             TextInputLayout name = v.findViewById(R.id.tenantUsername);
             TextInputLayout phone = v.findViewById(R.id.editTextPhone);
@@ -113,21 +128,44 @@ public class UnitRecAdapter extends RecyclerView.Adapter<UnitRecAdapter.myHolder
                     String tenantPhone = phone.getEditText().getText().toString().trim();
                     String tenantEmail = email.getEditText().getText().toString().trim();
                     String tenantId = id.getEditText().getText().toString().trim();
-                    tenant = new Tenant(tenantName, tenantEmail,tenantPhone,tenantId,unit.getProperty_name(),unit.getUnit_name());
-                    tenant.setManagerName(pref.getString(Constants.NAME, ""));
+
+                    tenant = new Tenant(tenantName,tenantEmail,tenantPhone,tenantId, unit.getProperty_name(), unit.getUnit_name(),pref.getString(Constants.NAME, "") );
+                    calls = RetrofitClient.getClient();
 
                     call = calls.addTenant(tenant);
-                    call.clone().enqueue(new Callback<Tenant>() {
+                    call.enqueue(new Callback<Tenant>() {
                         @Override
                         public void onResponse(Call<Tenant> call, Response<Tenant> response) {
                             if (response.isSuccessful()){
                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Tenants");
                                 ref.child(tenantId).setValue(tenant);
-                                tenantName1.setText(tenantName);
-                                tenantPhone2.setText(tenantPhone);
+                                tenantName1.setText(tenant1.getTenant_name());
+                                tenantPhone2.setText(tenant1.getTenant_phone());
+
+                                call1 = calls.getTenant(unit.getUnitName());
+                                call1.enqueue(new Callback<Tenant>() {
+                                    @Override
+                                    public void onResponse(Call<Tenant> call, Response<Tenant> response) {
+                                        if (response.isSuccessful()){
+                                            tenantName1.setText(tenant1.getTenant_name());
+                                            tenantPhone2.setText(tenant1.getTenant_phone());
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<Tenant> call, Throwable t) {
+
+                                    }
+                                });
+
+
+
                                 Toast.makeText(cont, "Tenant successfully onboarded", Toast.LENGTH_SHORT).show();
-                                dialog.dismiss();
+
+                            }else{
+                                Toast.makeText(cont, "please try again", Toast.LENGTH_SHORT).show();
                             }
+                            dialog.dismiss();
                         }
 
                         @Override
@@ -135,29 +173,14 @@ public class UnitRecAdapter extends RecyclerView.Adapter<UnitRecAdapter.myHolder
                             String error = t.getMessage();
                             Toast.makeText(cont, error, Toast.LENGTH_SHORT).show();
 
+
                         }
                     });
-
-
-
                 }
+
             });
 
             dialog.setContentView(v);
-        }
-
-        public void setData(Unit unit){
-            name.setText(unit.getUnit_name());
-            tenantName1.setText("Vacant");
-            unitRooms.setText("This unit contains "+unit.getUnit_rooms() + " rooms");
-            this.unit = unit;
-        }
-
-        @Override
-        public void onClick(View v) {
-            if (v == add){
-                dialog.show();
-            }
         }
     }
 }

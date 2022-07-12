@@ -67,22 +67,22 @@ public class DefectFragment extends Fragment {
         defBind = FragmentDefectBinding.inflate(inflater, container, false);
         View v = defBind.getRoot();
 
-        Picasso.get().load(defect.getStingUri()).into(defBind.animationView);
+        Picasso.get().load(defect.getString_uri()).into(defBind.animationView);
         defBind.catName.setText(defect.getDescription());
-        defBind.questType.setText(defect.getBuilding());
+        defBind.questType.setText(defect.getProperty_name());
 
         ref = FirebaseDatabase.getInstance().getReference().child("Tenants");
 
-        Query query = ref.orderByChild("tenant_id").equalTo(defect.getTenantId());
+        Query query = ref.orderByChild("tenant_id").equalTo(defect.getTenant_id());
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
 
-                    String tenantName = snapshot.child(defect.getTenantId()).child("tenant_name").getValue(String.class);
-                    String tenantPhone = snapshot.child(defect.getTenantId()).child("tenant_phone").getValue(String.class);
-                    String tenantEmail = snapshot.child(defect.getTenantId()).child("tenant_email").getValue(String.class);
+                    String tenantName = snapshot.child(defect.getTenant_id()).child("tenant_name").getValue(String.class);
+                    String tenantPhone = snapshot.child(defect.getTenant_id()).child("tenant_phone").getValue(String.class);
+                    String tenantEmail = snapshot.child(defect.getTenant_id()).child("tenant_email").getValue(String.class);
 
                     defBind.questAns.setText(tenantName);
                     defBind.questMode.setText(tenantPhone);

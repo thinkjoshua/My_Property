@@ -52,6 +52,7 @@ public class PropertiesActivity extends AppCompatActivity implements View.OnClic
     PropertyRecAdapter adapter;
     Call<List<Property>> call1;
     Call<Property> call2;
+    Call<List<Defect>> call3;
     SharedPreferences pref;
     DefectRecAdapter adp;
     DatabaseReference ref;
@@ -76,19 +77,6 @@ public class PropertiesActivity extends AppCompatActivity implements View.OnClic
         properBind.managerName.setText("Hey, "+ pref.getString(Constants.NAME, "Charles"));
 
 
-//        ref.child(Constants.PROPERTY_MANAGERS).child(pref.getString(Constants.EMAIL,"")).addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                manager = snapshot.getValue(PropertyManager.class);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError t) {
-//                String error = t.getMessage();
-//                Toast.makeText(PropertiesActivity.this, error, Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
 
         properBind.add.setOnClickListener(this);
         properBind.add2.setOnClickListener(this);
@@ -103,129 +91,26 @@ public class PropertiesActivity extends AppCompatActivity implements View.OnClic
         String name1 = pref.getString(Constants.NAME, "");
 
         call1 = calls.getManagerProperties(pref.getString(Constants.NAME, "Charles"));
+        call3 = calls.managerDefects(pref.getString(Constants.NAME, "Charles"));
 
-        ref.child("defects").addChildEventListener(new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                        if (snapshot != null){
-                            for (DataSnapshot singleDefect: snapshot.getChildren()){
-                                Defect defect = singleDefect.getValue(Defect.class);
-                                allDefects.add(defect);
-                            }
-                            adp = new DefectRecAdapter(allDefects, PropertiesActivity.this);
-                            properBind.recView.setAdapter(adp);
-                            properBind.recView.setLayoutManager(new LinearLayoutManager(PropertiesActivity.this));
-                            properBind.recView.setHasFixedSize(true);
-                            adp.notifyDataSetChanged();
-                        }
+        call3.clone().enqueue(new Callback<List<Defect>>() {
+            @Override
+            public void onResponse(Call<List<Defect>> call, Response<List<Defect>> response) {
+                allDefects = response.body();
+                adp = new DefectRecAdapter(allDefects, PropertiesActivity.this);
+                properBind.recView.setAdapter(adp);
+                properBind.recView.setHasFixedSize(true);
+                properBind.recView.setLayoutManager(new LinearLayoutManager(PropertiesActivity.this));
+            }
 
+            @Override
+            public void onFailure(Call<List<Defect>> call, Throwable t) {
+                String error = t.getMessage();
+                Toast.makeText(PropertiesActivity.this, error, Toast.LENGTH_SHORT).show();
 
-                    }
+            }
+        });
 
-                    @Override
-                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-                    }
-
-                    @Override
-                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-                    }
-
-                    @Override
-                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-
-//        Query query = ref.child("defects").orderByChild("managerName").equalTo(name1);
-
-//        query.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if (snapshot != null){
-//                            for (DataSnapshot singleDefect: snapshot.getChildren()){
-//                                Defect defect = singleDefect.getValue(Defect.class);
-//                                allDefects.add(defect);
-//                            }
-//                            adp = new DefectRecAdapter(allDefects, PropertiesActivity.this);
-//                            properBind.recView.setAdapter(adp);
-//                            properBind.recView.setLayoutManager(new LinearLayoutManager(PropertiesActivity.this));
-//                            properBind.recView.setHasFixedSize(true);
-//                            adp.notifyDataSetChanged();
-//                        }
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//
-//        query.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if (snapshot.exists()){
-//
-//                    String emailFromDb = snapshot.child(tenantPassword).child("tenant_email").getValue(String.class);
-//                    String tenantId = snapshot.child(tenantPassword).child("tenant_id").getValue(String.class);
-//
-//                    if (tenantEmail.equals(emailFromDb) && tenantPassword.equals(tenantId)){
-//
-//                        prefEditor.putString(Constants.TENANT_ID, tenantId).apply();
-//                        Intent intent = new Intent(TenantLoginActivity.this, TenantDashboardActivity.class);
-//                        startActivity(intent);
-//
-//                    }else{
-//                        Toast.makeText(TenantLoginActivity.this, "Please check your credentials and login again", Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-
-
-
-
-
-
-//                .addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//
-//                if (snapshot != null){
-//                    for (DataSnapshot singleDefect: snapshot.getChildren()){
-//                        Defect defect = singleDefect.getValue(Defect.class);
-//                        allDefects.add(defect);
-//                    }
-//                }
-//
-//                adp = new DefectRecAdapter(allDefects, PropertiesActivity.this);
-//                properBind.recView.setAdapter(adp);
-//                properBind.recView.setLayoutManager(new LinearLayoutManager(PropertiesActivity.this));
-//                properBind.recView.setHasFixedSize(true);
-//                adp.notifyDataSetChanged();
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError t) {
-//                String error = t.getMessage();
-//                Toast.makeText(PropertiesActivity.this, error, Toast.LENGTH_SHORT).show();
-//            }
-//        });
 
     }
 

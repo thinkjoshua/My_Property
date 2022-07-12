@@ -74,11 +74,11 @@ public class DefectRecAdapter extends RecyclerView.Adapter<DefectRecAdapter.myHo
         }
 
         public void setData(Defect defect){
-            name.setText(defect.getBuilding());
+            name.setText(defect.getProperty_name());
             description.setText(defect.getDescription());
             Glide.with(cont)
                     .asBitmap()
-                    .load(defect.getStingUri())
+                    .load(defect.getString_uri())
                     .into(img);
         }
     }
