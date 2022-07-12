@@ -139,8 +139,8 @@ public class UnitRecAdapter extends RecyclerView.Adapter<UnitRecAdapter.myHolder
                             if (response.isSuccessful()){
                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Tenants");
                                 ref.child(tenantId).setValue(tenant);
-                                tenantName1.setText(tenant1.getTenant_name());
-                                tenantPhone2.setText(tenant1.getTenant_phone());
+                                tenantName1.setText(tenantName);
+                                tenantPhone2.setText(tenantPhone);
 
                                 call1 = calls.getTenant(unit.getUnitName());
                                 call1.enqueue(new Callback<Tenant>() {
