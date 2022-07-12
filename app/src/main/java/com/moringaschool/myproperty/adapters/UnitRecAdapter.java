@@ -1,6 +1,8 @@
 package com.moringaschool.myproperty.adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.moringaschool.myproperty.R;
 import com.moringaschool.myproperty.api.ApiCalls;
 import com.moringaschool.myproperty.api.RetrofitClient;
+import com.moringaschool.myproperty.models.Constants;
 import com.moringaschool.myproperty.models.Tenant;
 import com.moringaschool.myproperty.models.Unit;
 
@@ -67,6 +70,7 @@ public class UnitRecAdapter extends RecyclerView.Adapter<UnitRecAdapter.myHolder
         Call<Tenant> call;
         ApiCalls calls;
         Tenant tenant;
+        SharedPreferences pref;
 
 
         public myHolder(@NonNull View itemView) {
@@ -77,6 +81,8 @@ public class UnitRecAdapter extends RecyclerView.Adapter<UnitRecAdapter.myHolder
             unitRooms = itemView.findViewById(R.id.location);
             remove = itemView.findViewById(R.id.remove);
             add = itemView.findViewById(R.id.add);
+
+            pref = PreferenceManager.getDefaultSharedPreferences(cont);
 
 
             dialog = new BottomSheetDialog(cont);
@@ -108,6 +114,7 @@ public class UnitRecAdapter extends RecyclerView.Adapter<UnitRecAdapter.myHolder
                     String tenantEmail = email.getEditText().getText().toString().trim();
                     String tenantId = id.getEditText().getText().toString().trim();
                     tenant = new Tenant(tenantName, tenantEmail,tenantPhone,tenantId,unit.getProperty_name(),unit.getUnit_name());
+                    tenant.setManagerName(pref.getString(Constants.NAME, ""));
 
                     call = calls.addTenant(tenant);
                     call.clone().enqueue(new Callback<Tenant>() {

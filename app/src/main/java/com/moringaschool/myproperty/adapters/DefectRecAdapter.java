@@ -1,6 +1,7 @@
 package com.moringaschool.myproperty.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,10 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.moringaschool.myproperty.R;
 import com.moringaschool.myproperty.models.Defect;
+import com.moringaschool.myproperty.ui.DefectsActivity;
+import com.moringaschool.myproperty.ui.PropertyDetailsActivity;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class DefectRecAdapter extends RecyclerView.Adapter<DefectRecAdapter.myHolder> {
@@ -58,6 +62,11 @@ public class DefectRecAdapter extends RecyclerView.Adapter<DefectRecAdapter.myHo
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    int position = getLayoutPosition();
+                    Intent intent = new Intent(cont, DefectsActivity.class);
+                    intent.putExtra("position", position);
+                    intent.putExtra("allDefects", (Serializable) allDefects);
+                    cont.startActivity(intent);
                     Toast.makeText(cont, "Coming Wait and Relax ", Toast.LENGTH_LONG).show();
                 }
             });
