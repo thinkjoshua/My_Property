@@ -32,12 +32,18 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.moringaschool.myproperty.R;
+import com.moringaschool.myproperty.api.ApiCalls;
+import com.moringaschool.myproperty.api.RetrofitClient;
 import com.moringaschool.myproperty.databinding.ActivityDefectPostBinding;
 import com.moringaschool.myproperty.databinding.ActivityTenantDefectBinding;
 import com.moringaschool.myproperty.models.Constants;
 import com.moringaschool.myproperty.models.Defect;
 
 import java.io.IOException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class TenantDefectActivity extends AppCompatActivity {
 
@@ -53,6 +59,8 @@ public class TenantDefectActivity extends AppCompatActivity {
     StorageReference storageReference;
 
     SharedPreferences pref;
+    Call<Defect> call;
+    ApiCalls calls;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +75,8 @@ public class TenantDefectActivity extends AppCompatActivity {
         // get the Firebase  storage reference
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
+        calls = RetrofitClient.getClient();
+
 
         mainBind.captureImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -238,17 +248,34 @@ public class TenantDefectActivity extends AppCompatActivity {
         String defectDescription = mainBind.defectDescriptionEditText.getEditText().getText().toString().trim();
 //        String buildingName = mainBind.buildingNameET.getEditText().getText().toString().trim();
         String houseNumber = mainBind.houseNumberET.getEditText().getText().toString().trim();
-
-        defect = new Defect(defectDescription, pref.getString(Constants.PROPERTY_NAME, ""),  pref.getString(Constants.UNIT_NAME, ""),downloadUri);
-        defect.setStingUri(downloadUri);
         String tenant_id = pref.getString(Constants.TENANT_ID, "");
         String manager_name = pref.getString(Constants.DEFECT_MANAGER_NAME, "");
-        defect.setTenantId(tenant_id);
-        defect.setManagerName(manager_name);
 
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getReference("defects");
-        databaseReference.child(pref.getString(Constants.DEFECT_MANAGER_NAME,"")).child(defect.getDescription()).setValue(defect);
+        defect = new Defect(defectDescription, pref.getString(Constants.PROPERTY_NAME, ""), pref.getString(Constants.UNIT_NAME, ""),downloadUri,tenant_id,manager_name);
+        defect.setString_uri(downloadUri);
+
+        call = calls.addDefect(defect);
+        call.enqueue(new Callback<Defect>() {
+            @Override
+            public void onResponse(Call<Defect> call, Response<Defect> response) {
+                if (response.isSuccessful()){
+                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                    DatabaseReference databaseReference = firebaseDatabase.getReference("defects");
+                    databaseReference.child(pref.getString(Constants.DEFECT_MANAGER_NAME,"")).child(defect.getDescription()).setValue(defect);
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Defect> call, Throwable t) {
+                String error = t.getMessage();
+                Toast.makeText(TenantDefectActivity.this, error, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
     }
 
 }

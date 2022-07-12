@@ -258,17 +258,17 @@ public class DefectPostActivity extends AppCompatActivity {
         String houseNumber = mainBind.houseNumberET.getText().toString().trim();
 
         uploadImage();
-        defect = new Defect(defectDescription, buildingName, houseNumber,downloadUri);
-        defect.setStingUri(downloadUri);
+//        defect = new Defect(defectDescription, buildingName, houseNumber,downloadUri);
+//        defect.setStingUri(downloadUri);
 //
 //        Toast
 //                .makeText(DefectPostActivity.this,
 //                        downloadUri,
 //                        Toast.LENGTH_SHORT)
 //                .show();
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getInstance().getReference("defects");
-        databaseReference.setValue(defect);
+//        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+//        DatabaseReference databaseReference = firebaseDatabase.getInstance().getReference("defects");
+//        databaseReference.setValue(defect);
 
 
 

@@ -1,5 +1,6 @@
 package com.moringaschool.myproperty.api;
 
+import com.moringaschool.myproperty.models.Defect;
 import com.moringaschool.myproperty.models.Property;
 import com.moringaschool.myproperty.models.PropertyManager;
 import com.moringaschool.myproperty.models.Tenant;
@@ -39,6 +40,11 @@ public interface ApiCalls {
             @Body Tenant tenant
     );
 
+    @GET("/Tenant/{name}")
+    Call<Tenant> getTenant(
+            @Path("name") String unitName
+    );
+
     @POST("/unit")
     Call<Unit> addUnit(
             @Body Unit unit
@@ -47,6 +53,16 @@ public interface ApiCalls {
     @GET("/units/{name}")
     Call<List<Unit>> propertyUnits(
             @Path("name") String propertyName
+    );
+
+    @POST("/defect")
+    Call<Defect> addDefect(
+            @Body Defect defect
+    );
+
+    @GET("/defects/{managerName}")
+    Call<List<Defect>> managerDefects(
+            @Path("managerName") String managerName
     );
 
 }
