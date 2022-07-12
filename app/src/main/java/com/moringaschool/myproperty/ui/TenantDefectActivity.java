@@ -236,14 +236,19 @@ public class TenantDefectActivity extends AppCompatActivity {
 
     private void saveDefect() {
         String defectDescription = mainBind.defectDescriptionEditText.getEditText().getText().toString().trim();
-        String buildingName = mainBind.buildingNameET.getEditText().getText().toString().trim();
+//        String buildingName = mainBind.buildingNameET.getEditText().getText().toString().trim();
         String houseNumber = mainBind.houseNumberET.getEditText().getText().toString().trim();
-        defect = new Defect(defectDescription, buildingName, houseNumber,downloadUri);
+
+        defect = new Defect(defectDescription, pref.getString(Constants.PROPERTY_NAME, ""),  pref.getString(Constants.UNIT_NAME, ""),downloadUri);
         defect.setStingUri(downloadUri);
+        String tenant_id = pref.getString(Constants.TENANT_ID, "");
+        String manager_name = pref.getString(Constants.DEFECT_MANAGER_NAME, "");
+        defect.setTenantId(tenant_id);
+        defect.setManagerName(manager_name);
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference("defects");
-        databaseReference.child(pref.getString(Constants.TENANT_ID,"")).child(defect.getStingUri()).setValue(defect);
+        databaseReference.child(pref.getString(Constants.DEFECT_MANAGER_NAME,"")).child(defect.getDescription()).setValue(defect);
     }
 
 }

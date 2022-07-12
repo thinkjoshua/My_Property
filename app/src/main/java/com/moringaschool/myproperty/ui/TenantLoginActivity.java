@@ -61,10 +61,19 @@ public class TenantLoginActivity extends AppCompatActivity implements View.OnCli
 
                         String emailFromDb = snapshot.child(tenantPassword).child("tenant_email").getValue(String.class);
                         String tenantId = snapshot.child(tenantPassword).child("tenant_id").getValue(String.class);
+                        String propertyName = snapshot.child(tenantPassword).child("property_name").getValue(String.class);
+                        String unitName = snapshot.child(tenantPassword).child("unit_name").getValue(String.class);
+                        String tenantName = snapshot.child(tenantPassword).child("tenant_name").getValue(String.class);
+                        String managerName = snapshot.child(tenantPassword).child("managerName").getValue(String.class);
 
                         if (tenantEmail.equals(emailFromDb) && tenantPassword.equals(tenantId)){
 
                             prefEditor.putString(Constants.TENANT_ID, tenantId).apply();
+                            prefEditor.putString(Constants.PROPERTY_NAME, propertyName).apply();
+                            prefEditor.putString(Constants.UNIT_NAME, unitName).apply();
+                            prefEditor.putString(Constants.TENANT_NAME, tenantName).apply();
+                            prefEditor.putString(Constants.DEFECT_MANAGER_NAME, managerName).apply();
+
                             Intent intent = new Intent(TenantLoginActivity.this, TenantDashboardActivity.class);
                             startActivity(intent);
 

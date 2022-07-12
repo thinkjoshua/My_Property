@@ -1,7 +1,10 @@
 package com.moringaschool.myproperty.models;
 
-public class Defect {
-    private String description , building, houseNumber, stingUri;
+import java.io.Serializable;
+
+public class Defect implements Serializable {
+
+    private String description , building, houseNumber, stingUri, tenantId, managerName;
 
     public Defect() {
     }
@@ -10,6 +13,22 @@ public class Defect {
         this.description = description;
         this.building = building;
         this.houseNumber = houseNumber;
+    }
+
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    public String getManagerName() {
+        return managerName;
+    }
+
+    public void setManagerName(String managerName) {
+        this.managerName = managerName;
+    }
+
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
     }
 
     public String getDescription() {

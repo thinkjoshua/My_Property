@@ -9,7 +9,7 @@ import java.util.Objects;
 public class Tenant implements Serializable {
 
     private int id;
-    private String tenant_name,tenant_email, tenant_phone, tenant_id, property_name, unit_name, join_date;
+    private String tenant_name,tenant_email, tenant_phone, tenant_id, property_name, unit_name, join_date, managerName;
     private Timestamp joined;
 
 
@@ -44,6 +44,14 @@ public class Tenant implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getManagerName() {
+        return managerName;
+    }
+
+    public void setManagerName(String managerName) {
+        this.managerName = managerName;
     }
 
     public String getTenant_name() {
