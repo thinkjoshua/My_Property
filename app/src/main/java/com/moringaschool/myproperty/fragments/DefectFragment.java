@@ -35,6 +35,7 @@ import com.moringaschool.myproperty.ui.TenantLoginActivity;
 import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
+import java.text.DateFormat;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -88,7 +89,11 @@ public class DefectFragment extends Fragment {
         defBind.catName.setText("Defect: " + defect.getDescription());
         defBind.questType.setText("Unit Name: "+defect.getUnit_name());
         defBind.contractorName.setText(defect.getDescription());
-
+        defBind.phone.setText("The described defect has been posted by the above named tenant in his current House. It is adivasable to assign a relevant contractor to fix the problem before it damages your property. It is advisable to look for contractors near the location of the property the tenant live in.");
+        defBind.locat.setText("You can use the plus button indicated above to assign a contractor to the given defect.");
+        String date = DateFormat.getDateTimeInstance().format(defect.getCreated_at());
+        defBind.tenantName.setText("Found in property: "+defect.getProperty_name());
+        defBind.tenantDes.setText("Posted in: "+ date);
 
         ref = FirebaseDatabase.getInstance().getReference();
 

@@ -62,17 +62,17 @@ public class TenantDefectRecAdapter extends RecyclerView.Adapter<TenantDefectRec
             phone = itemView.findViewById(R.id.manager_name);
             date = itemView.findViewById(R.id.joined);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getLayoutPosition();
-                    Intent intent = new Intent(cont, DefectsActivity.class);
-                    intent.putExtra("position", position);
-                    intent.putExtra("allDefects", (Serializable) allDefects);
-                    cont.startActivity(intent);
-                    Toast.makeText(cont, "Coming Wait and Relax ", Toast.LENGTH_LONG).show();
-                }
-            });
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    int position = getLayoutPosition();
+//                    Intent intent = new Intent(cont, DefectsActivity.class);
+//                    intent.putExtra("position", position);
+//                    intent.putExtra("allDefects", (Serializable) allDefects);
+//                    cont.startActivity(intent);
+//                    Toast.makeText(cont, "Coming Wait and Relax ", Toast.LENGTH_LONG).show();
+//                }
+//            });
 
         }
 
