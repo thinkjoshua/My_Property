@@ -23,6 +23,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.moringaschool.myproperty.R;
+import com.moringaschool.myproperty.api.ApiCalls;
+import com.moringaschool.myproperty.api.RetrofitClient;
 import com.moringaschool.myproperty.databinding.FragmentDefectBinding;
 import com.moringaschool.myproperty.models.Constants;
 import com.moringaschool.myproperty.models.Defect;
@@ -34,16 +36,18 @@ import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class DefectFragment extends Fragment {
     FragmentDefectBinding defBind;
     Defect defect;
     DatabaseReference ref;
     String tenantId;
     BottomSheetDialog dialog;
-
-
-
-
+    Call<DoneDefect> call;
+    ApiCalls calls;
 
     public DefectFragment() {
         // Required empty public constructor
@@ -75,6 +79,8 @@ public class DefectFragment extends Fragment {
         defBind = FragmentDefectBinding.inflate(inflater, container, false);
         View v = defBind.getRoot();
         dialog = new BottomSheetDialog(getContext());
+
+        calls = RetrofitClient.getClient();
 
         createDialog();
 
@@ -139,21 +145,38 @@ public class DefectFragment extends Fragment {
                 String contactorLocation = location.getEditText().getText().toString().trim();
 
                 DoneDefect doneDefect = new DoneDefect(defect.getDescription(),defect.getString_uri(),contactorName,contactorPhone,contactorLocation,defect.getManager_name(),defect.getTenant_id());
-                ref.child("DoneDefects").child(doneDefect.getName()).setValue(doneDefect).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()){
-                            defBind.contractorName.setText(doneDefect.getName());
-                            defBind.phone.setText(contactorPhone);
-                            defBind.locat.setText(contactorLocation);
-                            defBind.tenantName.setText(doneDefect.getManagerName());
-                            Toast.makeText(getContext(), "Assigned a contractor", Toast.LENGTH_SHORT).show();
+                call = calls.addDefect(doneDefect);
 
+                call.clone().enqueue(new Callback<DoneDefect>() {
+                    @Override
+                    public void onResponse(Call<DoneDefect> call, Response<DoneDefect> response) {
+                        if(response.isSuccessful()){
+                            Toast.makeText(getContext(), "Assigned a contractor", Toast.LENGTH_SHORT).show();
                         }
                         dialog.dismiss();
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<DoneDefect> call, Throwable t) {
+                        String error = t.getMessage();
+                        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
                     }
                 });
 
+//                ref.child("DoneDefects").child(doneDefect.getName()).setValue(doneDefect).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        if (task.isSuccessful()){
+//                            defBind.contractorName.setText(doneDefect.getName());
+//                            defBind.phone.setText(contactorPhone);
+//                            defBind.locat.setText(contactorLocation);
+//                            defBind.tenantName.setText(doneDefect.getManager_name());
+//
+//                        }
+//                    }
+//                });
+//
             }
         });
 
@@ -163,6 +186,8 @@ public class DefectFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
+
 
         Query q = ref.child("DoneDefects").orderByChild("name").equalTo(defect.getDescription());
         q.addListenerForSingleValueEvent(new ValueEventListener() {

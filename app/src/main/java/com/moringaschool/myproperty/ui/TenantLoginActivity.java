@@ -74,7 +74,7 @@ public class TenantLoginActivity extends AppCompatActivity implements View.OnCli
                             prefEditor.putString(Constants.TENANT_NAME, tenantName).apply();
                             prefEditor.putString(Constants.DEFECT_MANAGER_NAME, managerName).apply();
 
-                            Intent intent = new Intent(TenantLoginActivity.this, TenantDashboardActivity.class);
+                            Intent intent = new Intent(TenantLoginActivity.this, TenantMainActivity.class);
                             startActivity(intent);
 
                         }else{

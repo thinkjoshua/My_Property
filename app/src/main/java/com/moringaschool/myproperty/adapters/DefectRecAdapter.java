@@ -19,6 +19,7 @@ import com.moringaschool.myproperty.ui.DefectsActivity;
 import com.moringaschool.myproperty.ui.PropertyDetailsActivity;
 
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.util.List;
 
 public class DefectRecAdapter extends RecyclerView.Adapter<DefectRecAdapter.myHolder> {
@@ -49,7 +50,7 @@ public class DefectRecAdapter extends RecyclerView.Adapter<DefectRecAdapter.myHo
     }
 
     public class myHolder extends RecyclerView.ViewHolder {
-        TextView name, description;
+        TextView name, description, managerName, phone, date;
         ShapeableImageView img;
 
         public myHolder(@NonNull View itemView) {
@@ -58,6 +59,9 @@ public class DefectRecAdapter extends RecyclerView.Adapter<DefectRecAdapter.myHo
             name = itemView.findViewById(R.id.propertyName);
             description = itemView.findViewById(R.id.propertyDescription);
             img = itemView.findViewById(R.id.image);
+            managerName = itemView.findViewById(R.id.occupied);
+            phone = itemView.findViewById(R.id.manager_name);
+            date = itemView.findViewById(R.id.joined);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -74,12 +78,16 @@ public class DefectRecAdapter extends RecyclerView.Adapter<DefectRecAdapter.myHo
         }
 
         public void setData(Defect defect){
-            name.setText(defect.getProperty_name());
-            description.setText(defect.getDescription());
+            name.setText(defect.getDescription());
+            description.setText("In property: "+defect.getProperty_name());
             Glide.with(cont)
                     .asBitmap()
                     .load(defect.getString_uri())
                     .into(img);
+            managerName.setText("Manager name: "+defect.getManager_name());
+            phone.setText("Defect in: "+defect.getUnit_name());
+            String newDate = DateFormat.getDateTimeInstance().format(defect.getCreated_at());
+            date.setText("Posted in: "+newDate);
         }
     }
 }

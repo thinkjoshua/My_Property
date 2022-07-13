@@ -83,9 +83,7 @@ public class UnitRecAdapter extends RecyclerView.Adapter<UnitRecAdapter.myHolder
             add = itemView.findViewById(R.id.add);
 
             pref = PreferenceManager.getDefaultSharedPreferences(cont);
-
-
-
+            calls = RetrofitClient.getClient();
 
             dialog = new BottomSheetDialog(cont);
             createDialog();
@@ -101,6 +99,8 @@ public class UnitRecAdapter extends RecyclerView.Adapter<UnitRecAdapter.myHolder
             unitRooms.setText("This unit contains "+unit.getUnit_rooms() + " rooms");
             this.unit = unit;
         }
+
+
 
         @Override
         public void onClick(View v) {
@@ -130,7 +130,6 @@ public class UnitRecAdapter extends RecyclerView.Adapter<UnitRecAdapter.myHolder
                     String tenantId = id.getEditText().getText().toString().trim();
 
                     tenant = new Tenant(tenantName,tenantEmail,tenantPhone,tenantId, unit.getProperty_name(), unit.getUnit_name(),pref.getString(Constants.NAME, "") );
-                    calls = RetrofitClient.getClient();
 
                     call = calls.addTenant(tenant);
                     call.enqueue(new Callback<Tenant>() {
@@ -141,12 +140,14 @@ public class UnitRecAdapter extends RecyclerView.Adapter<UnitRecAdapter.myHolder
                                 ref.child(tenantId).setValue(tenant);
                                 tenantName1.setText(tenantName);
                                 tenantPhone2.setText(tenantPhone);
+                                Toast.makeText(cont, "Tenant successfully onboarded", Toast.LENGTH_SHORT).show();
 
                                 call1 = calls.getTenant(unit.getUnitName());
                                 call1.enqueue(new Callback<Tenant>() {
                                     @Override
                                     public void onResponse(Call<Tenant> call, Response<Tenant> response) {
                                         if (response.isSuccessful()){
+                                            tenant1 = response.body();
                                             tenantName1.setText(tenant1.getTenant_name());
                                             tenantPhone2.setText(tenant1.getTenant_phone());
                                         }
@@ -154,13 +155,10 @@ public class UnitRecAdapter extends RecyclerView.Adapter<UnitRecAdapter.myHolder
 
                                     @Override
                                     public void onFailure(Call<Tenant> call, Throwable t) {
-
+                                        String error = t.getMessage();
+                                        Toast.makeText(cont, error, Toast.LENGTH_SHORT).show();
                                     }
                                 });
-
-
-
-                                Toast.makeText(cont, "Tenant successfully onboarded", Toast.LENGTH_SHORT).show();
 
                             }else{
                                 Toast.makeText(cont, "please try again", Toast.LENGTH_SHORT).show();

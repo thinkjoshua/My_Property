@@ -7,7 +7,7 @@
         android:title="Home"/>
     <item
         android:id="@+id/tenants"
-        android:icon="@drawable/tenant"
+        android:icon="@drawable/tenant1"
         android:title="Tenants"/>
 
     <item
@@ -16,7 +16,7 @@
         android:title="Done requests"/>
 
     <item
-        android:id="@+id/logout"
+        android:id="@+id/back"
         android:icon="@drawable/logout"
         android:title="Logout"/>
 
