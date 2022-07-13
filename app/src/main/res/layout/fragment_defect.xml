@@ -152,8 +152,8 @@
             android:id="@+id/phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/phone"
             android:layout_marginTop="8dp"
+            android:textSize="15sp"
             android:textColor="@color/white"
             android:text="Category Name"
             app:layout_constraintTop_toBottomOf="@id/contractor_name"
@@ -164,8 +164,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textColor="@color/white"
-            android:drawableStart="@drawable/mail"
+            android:textColor="@color/gold"
             android:text="Category Name"
             app:layout_constraintTop_toBottomOf="@id/phone"
             app:layout_constraintStart_toStartOf="@id/phone"/>
@@ -174,11 +173,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="location"
-            android:textColor="@color/white"
+            android:textColor="@color/gold"
             android:layout_marginTop="8dp"
-            android:drawableStart="@drawable/location"
             app:layout_constraintTop_toBottomOf="@id/locat"
-            app:layout_constraintStart_toStartOf="@id/locat"/>
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/tenantDes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="location"
+            android:textColor="@color/gold"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/tenantName"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
