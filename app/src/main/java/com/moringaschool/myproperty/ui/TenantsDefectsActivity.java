@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.moringaschool.myproperty.R;
 import com.moringaschool.myproperty.adapters.DefectRecAdapter;
+import com.moringaschool.myproperty.adapters.TenantDefectRecAdapter;
 import com.moringaschool.myproperty.api.ApiCalls;
 import com.moringaschool.myproperty.api.RetrofitClient;
 import com.moringaschool.myproperty.databinding.ActivityTenantsDefectsBinding;
@@ -34,7 +35,7 @@ public class TenantsDefectsActivity extends AppCompatActivity {
     Call<List<Defect>> call;
     ApiCalls calls;
     List<Defect> allDefects;
-    DefectRecAdapter adp;
+    TenantDefectRecAdapter adp;
 
 
     @Override
@@ -59,7 +60,7 @@ public class TenantsDefectsActivity extends AppCompatActivity {
             public void onResponse(Call<List<Defect>> call, Response<List<Defect>> response) {
                 if (response.isSuccessful()){
                     allDefects = response.body();
-                    adp = new DefectRecAdapter(allDefects, TenantsDefectsActivity.this);
+                    adp = new TenantDefectRecAdapter(allDefects, TenantsDefectsActivity.this);
                     tenBind.myRec.setAdapter(adp);
                     tenBind.myRec.setHasFixedSize(true);
                     tenBind.myRec.setLayoutManager(new LinearLayoutManager(TenantsDefectsActivity.this));

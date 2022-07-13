@@ -10,24 +10,17 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.moringaschool.myproperty.R;
-import com.moringaschool.myproperty.adapters.DefectRecAdapter;
-import com.moringaschool.myproperty.adapters.UnitRecAdapter;
+import com.moringaschool.myproperty.adapters.TenantUnitRecAdapter;
 import com.moringaschool.myproperty.api.ApiCalls;
 import com.moringaschool.myproperty.api.RetrofitClient;
 import com.moringaschool.myproperty.databinding.ActivityTenantMainBinding;
 import com.moringaschool.myproperty.models.Constants;
-import com.moringaschool.myproperty.models.Defect;
-import com.moringaschool.myproperty.models.DoneDefect;
-import com.moringaschool.myproperty.models.Tenant;
+
 import com.moringaschool.myproperty.models.Unit;
 
 import java.util.ArrayList;
@@ -44,7 +37,7 @@ public class TenantMainActivity extends AppCompatActivity implements View.OnClic
 
     String tenantName;
     List<Unit> allUnits;
-    UnitRecAdapter adp;
+    TenantUnitRecAdapter adp;
     Call<List<Unit>> call;
     ApiCalls calls;
 
@@ -73,7 +66,7 @@ public class TenantMainActivity extends AppCompatActivity implements View.OnClic
             public void onResponse(Call<List<Unit>> call, Response<List<Unit>> response) {
                 if (response.isSuccessful()){
                     allUnits = response.body();
-                    adp = new UnitRecAdapter(allUnits, TenantMainActivity.this);
+                    adp = new TenantUnitRecAdapter(allUnits, TenantMainActivity.this);
                     mainTenantBind.recView.setAdapter(adp);
                     mainTenantBind.recView.setHasFixedSize(true);
                     mainTenantBind.recView.setLayoutManager(new LinearLayoutManager(TenantMainActivity.this));
