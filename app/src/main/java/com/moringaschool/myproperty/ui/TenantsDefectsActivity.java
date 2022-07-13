@@ -1,15 +1,20 @@
 package com.moringaschool.myproperty.ui;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.moringaschool.myproperty.R;
 import com.moringaschool.myproperty.adapters.DefectRecAdapter;
+import com.moringaschool.myproperty.adapters.TenantDefectRecAdapter;
 import com.moringaschool.myproperty.api.ApiCalls;
 import com.moringaschool.myproperty.api.RetrofitClient;
 import com.moringaschool.myproperty.databinding.ActivityTenantsDefectsBinding;
@@ -30,7 +35,7 @@ public class TenantsDefectsActivity extends AppCompatActivity {
     Call<List<Defect>> call;
     ApiCalls calls;
     List<Defect> allDefects;
-    DefectRecAdapter adp;
+    TenantDefectRecAdapter adp;
 
 
     @Override
@@ -55,7 +60,7 @@ public class TenantsDefectsActivity extends AppCompatActivity {
             public void onResponse(Call<List<Defect>> call, Response<List<Defect>> response) {
                 if (response.isSuccessful()){
                     allDefects = response.body();
-                    adp = new DefectRecAdapter(allDefects, TenantsDefectsActivity.this);
+                    adp = new TenantDefectRecAdapter(allDefects, TenantsDefectsActivity.this);
                     tenBind.myRec.setAdapter(adp);
                     tenBind.myRec.setHasFixedSize(true);
                     tenBind.myRec.setLayoutManager(new LinearLayoutManager(TenantsDefectsActivity.this));
@@ -69,6 +74,35 @@ public class TenantsDefectsActivity extends AppCompatActivity {
             }
         });
 
+        navigation(tenBind.bottom);
+    }
 
+    private void navigation(BottomNavigationView bottomNavigationView) {
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.home:
+                        startActivity(new Intent(TenantsDefectsActivity.this, TenantMainActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.move:
+                        startActivity(new Intent(TenantsDefectsActivity.this, TenantDefectActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.favourites:
+                        return true;
+                    case R.id.back:
+                        Intent intent = new Intent(TenantsDefectsActivity.this, SplashActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        finish();
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+
+                return false;
+            }
+        });
     }
 }

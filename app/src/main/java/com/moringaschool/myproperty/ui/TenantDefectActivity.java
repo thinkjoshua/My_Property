@@ -222,6 +222,8 @@ public class TenantDefectActivity extends AppCompatActivity {
                                     progressDialog.dismiss();
                                     Toast.makeText(TenantDefectActivity.this,"Image Uploaded!!",Toast.LENGTH_SHORT).show();
                                     saveDefect();
+                                    startActivity(new Intent(TenantDefectActivity.this, TenantMainActivity.class));
+
                                 }
                             })
 

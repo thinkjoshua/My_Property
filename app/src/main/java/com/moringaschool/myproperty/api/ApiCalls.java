@@ -1,6 +1,7 @@
 package com.moringaschool.myproperty.api;
 
 import com.moringaschool.myproperty.models.Defect;
+import com.moringaschool.myproperty.models.DoneDefect;
 import com.moringaschool.myproperty.models.Property;
 import com.moringaschool.myproperty.models.PropertyManager;
 import com.moringaschool.myproperty.models.Tenant;
@@ -60,6 +61,7 @@ public interface ApiCalls {
             @Path("name") String propertyName
     );
 
+
     @POST("/defect")
     Call<Defect> addDefect(
             @Body Defect defect
@@ -73,6 +75,21 @@ public interface ApiCalls {
     @GET("/tenantDefects/{tenantId}")
     Call<List<Defect>> tenantDefects(
             @Path("tenantId") String tenantId
+    );
+
+    @POST("/doneDefect")
+    Call<DoneDefect> addDefect(
+            @Body DoneDefect defect
+    );
+
+    @GET("/doneDefects/{tenantId}")
+    Call<List<DoneDefect>> tenantDoneDefects(
+            @Path("tenantId") String tenantId
+    );
+
+    @GET("/doneDefect/{managerName}")
+    Call<List<DoneDefect>> managerDoneDefects(
+            @Path("managerName") String managerName
     );
 
 }
