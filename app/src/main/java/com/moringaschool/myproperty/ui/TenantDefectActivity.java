@@ -253,6 +253,7 @@ public class TenantDefectActivity extends AppCompatActivity {
 
         defect = new Defect(defectDescription, pref.getString(Constants.PROPERTY_NAME, ""), pref.getString(Constants.UNIT_NAME, ""),downloadUri,tenant_id,manager_name);
         defect.setString_uri(downloadUri);
+        defect.setManager_name(manager_name);
 
         call = calls.addDefect(defect);
         call.enqueue(new Callback<Defect>() {
@@ -262,6 +263,7 @@ public class TenantDefectActivity extends AppCompatActivity {
                     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
                     DatabaseReference databaseReference = firebaseDatabase.getReference("defects");
                     databaseReference.child(pref.getString(Constants.DEFECT_MANAGER_NAME,"")).child(defect.getDescription()).setValue(defect);
+                    Toast.makeText(TenantDefectActivity.this, "Defect submitted successfully", Toast.LENGTH_SHORT).show();
 
                 }
 

@@ -12,10 +12,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
@@ -80,6 +82,7 @@ public class PropertiesActivity extends AppCompatActivity implements View.OnClic
 
         properBind.add.setOnClickListener(this);
         properBind.add2.setOnClickListener(this);
+        bottomClick(properBind.bottom);
         dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 
 //        manager = (PropertyManager) getIntent().getSerializableExtra("manager");
@@ -93,25 +96,36 @@ public class PropertiesActivity extends AppCompatActivity implements View.OnClic
         call1 = calls.getManagerProperties(pref.getString(Constants.NAME, "Charles"));
         call3 = calls.managerDefects(pref.getString(Constants.NAME, "Charles"));
 
-        call3.clone().enqueue(new Callback<List<Defect>>() {
-            @Override
-            public void onResponse(Call<List<Defect>> call, Response<List<Defect>> response) {
-                allDefects = response.body();
-                adp = new DefectRecAdapter(allDefects, PropertiesActivity.this);
-                properBind.recView.setAdapter(adp);
-                properBind.recView.setHasFixedSize(true);
-                properBind.recView.setLayoutManager(new LinearLayoutManager(PropertiesActivity.this));
-            }
 
-            @Override
-            public void onFailure(Call<List<Defect>> call, Throwable t) {
-                String error = t.getMessage();
-                Toast.makeText(PropertiesActivity.this, error, Toast.LENGTH_SHORT).show();
 
+    }
+
+    private void bottomClick( BottomNavigationView bottom) {
+        bottom.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.home:
+                        return true;
+                    case R.id.tenants:
+                        startActivity(new Intent(PropertiesActivity.this, MainActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.requests:
+                        startActivity(new Intent(PropertiesActivity.this, ManagerDashboardActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.back:
+                        Intent intent = new Intent(PropertiesActivity.this, SplashActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        finish();
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+                return false;
             }
         });
-
-
     }
 
     private void createDialog() {
@@ -191,5 +205,30 @@ public class PropertiesActivity extends AppCompatActivity implements View.OnClic
                 Toast.makeText(PropertiesActivity.this, error, Toast.LENGTH_SHORT).show();
             }
         });
+
+        call3.clone().enqueue(new Callback<List<Defect>>() {
+            @Override
+            public void onResponse(Call<List<Defect>> call, Response<List<Defect>> response) {
+                if (response.isSuccessful()){
+
+                    allDefects = response.body();
+                    adp = new DefectRecAdapter(allDefects, PropertiesActivity.this);
+                    properBind.recView.setAdapter(adp);
+                    properBind.recView.setHasFixedSize(true);
+                    properBind.recView.setLayoutManager(new LinearLayoutManager(PropertiesActivity.this));
+                }else{
+                    Toast.makeText(PropertiesActivity.this,"Something happened", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Defect>> call, Throwable t) {
+                String error = t.getMessage();
+                Toast.makeText(PropertiesActivity.this, error, Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
     }
 }

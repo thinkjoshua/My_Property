@@ -203,18 +203,6 @@
 
     </ScrollView>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:itemIconTint="@color/gold"
-        app:itemTextColor="@color/gold"
-        app:menu="@menu/bottombarmenutenant"
-        android:background="@color/blue"
-        app:labelVisibilityMode="labeled"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

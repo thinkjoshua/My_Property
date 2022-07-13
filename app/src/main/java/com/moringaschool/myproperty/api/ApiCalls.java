@@ -40,8 +40,13 @@ public interface ApiCalls {
             @Body Tenant tenant
     );
 
-    @GET("/Tenant/{name}")
+    @GET("/singleTenant/{name}")
     Call<Tenant> getTenant(
+            @Path("name") String unitName
+    );
+
+    @GET("/Tenants/{name}")
+    Call<List<Tenant>> getManagerTenants(
             @Path("name") String unitName
     );
 
@@ -63,6 +68,11 @@ public interface ApiCalls {
     @GET("/defects/{managerName}")
     Call<List<Defect>> managerDefects(
             @Path("managerName") String managerName
+    );
+
+    @GET("/tenantDefects/{tenantId}")
+    Call<List<Defect>> tenantDefects(
+            @Path("tenantId") String tenantId
     );
 
 }

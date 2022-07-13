@@ -70,7 +70,6 @@
             android:id="@+id/quest_ans"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/phone"
             android:layout_marginTop="8dp"
             android:textColor="@color/white"
             android:text="Category Name"
@@ -83,7 +82,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:textColor="@color/white"
-            android:drawableStart="@drawable/mail"
+            android:drawableStart="@drawable/phone"
             android:text="Category Name"
             app:layout_constraintTop_toBottomOf="@id/quest_ans"
             app:layout_constraintStart_toStartOf="@id/quest_ans"/>
@@ -94,7 +93,7 @@
             android:text="location"
             android:textColor="@color/white"
             android:layout_marginTop="8dp"
-            android:drawableStart="@drawable/location"
+            android:drawableStart="@drawable/mail"
             app:layout_constraintTop_toBottomOf="@id/quest_mode"
             app:layout_constraintStart_toStartOf="@id/quest_mode"/>
 
@@ -116,7 +115,7 @@
 
     <TextView
         android:id="@+id/units"
-        android:text="Property Units"
+        android:text="Defects Details"
         android:textStyle="bold"
         android:textSize="20sp"
         android:layout_width="wrap_content"
@@ -126,23 +125,74 @@
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toTopOf="@id/cont2"/>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_margin="4dp"
         android:id="@+id/cont2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@drawable/layout"
+        android:backgroundTint="@color/blue1"
         app:layout_constraintTop_toBottomOf="@id/units"
-        app:layout_constraintBottom_toTopOf="@id/bottom"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom"
-        android:background="@color/gold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:menu="@menu/navigation"
-        app:labelVisibilityMode="labeled"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        <TextView
+            android:id="@+id/contractor_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:text="Category Name"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/phone"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/white"
+            android:text="Category Name"
+            app:layout_constraintTop_toBottomOf="@id/contractor_name"
+            app:layout_constraintStart_toStartOf="@id/contractor_name"
+            app:layout_constraintRight_toRightOf="@id/contractor_name"/>
+        <TextView
+            android:id="@+id/locat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/white"
+            android:drawableStart="@drawable/mail"
+            android:text="Category Name"
+            app:layout_constraintTop_toBottomOf="@id/phone"
+            app:layout_constraintStart_toStartOf="@id/phone"/>
+        <TextView
+            android:id="@+id/tenantName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="location"
+            android:textColor="@color/white"
+            android:layout_marginTop="8dp"
+            android:drawableStart="@drawable/location"
+            app:layout_constraintTop_toBottomOf="@id/locat"
+            app:layout_constraintStart_toStartOf="@id/locat"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--        android:id="@+id/bottom"-->
+<!--        android:background="@color/gold"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:menu="@menu/navigation"-->
+<!--        app:labelVisibilityMode="labeled"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"/>-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
