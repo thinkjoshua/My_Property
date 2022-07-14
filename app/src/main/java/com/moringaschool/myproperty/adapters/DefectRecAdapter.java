@@ -71,7 +71,6 @@ public class DefectRecAdapter extends RecyclerView.Adapter<DefectRecAdapter.myHo
                     intent.putExtra("position", position);
                     intent.putExtra("allDefects", (Serializable) allDefects);
                     cont.startActivity(intent);
-                    Toast.makeText(cont, "Coming Wait and Relax ", Toast.LENGTH_LONG).show();
                 }
             });
 

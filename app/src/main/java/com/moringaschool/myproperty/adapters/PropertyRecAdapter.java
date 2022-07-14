@@ -71,8 +71,8 @@ public class PropertyRecAdapter extends RecyclerView.Adapter<PropertyRecAdapter.
 
         public void setPropertyData(Property property){
 
-            name.setText("Name "+property.getProperty_name().toUpperCase());
-            description.setText("Located at: " + property.getProperty_location());
+            name.setText(property.getProperty_name().toUpperCase());
+            description.setText(property.getProperty_location());
 //            occupied.setText(property.getManager_name());
         }
     }
