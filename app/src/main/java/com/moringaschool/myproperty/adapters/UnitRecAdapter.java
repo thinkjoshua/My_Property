@@ -95,7 +95,7 @@ public class UnitRecAdapter extends RecyclerView.Adapter<UnitRecAdapter.myHolder
 
         public void setData(Unit unit){
             name.setText(unit.getUnit_name());
-            tenantName1.setText("Vacant");
+            tenantName1.setVisibility(View.GONE);
             unitRooms.setText("This unit contains "+unit.getUnit_rooms() + " rooms");
             this.unit = unit;
         }

@@ -102,7 +102,7 @@ tools:context=".fragments.PropertyFragment">
 
         <ImageView
             android:id="@+id/animation_view2"
-            android:layout_width="170dp"
+            android:layout_width="130dp"
             android:layout_height="0dp"
             android:src="@drawable/houses"
             android:scaleType="centerCrop"
