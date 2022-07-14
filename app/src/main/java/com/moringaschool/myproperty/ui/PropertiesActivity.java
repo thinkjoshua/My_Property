@@ -112,7 +112,7 @@ public class PropertiesActivity extends AppCompatActivity implements View.OnClic
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.requests:
-                        startActivity(new Intent(PropertiesActivity.this, ManagerDashboardActivity.class));
+                        startActivity(new Intent(PropertiesActivity.this, ManagersDoneDefects.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.back:
