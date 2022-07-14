@@ -7,7 +7,7 @@
         android:title="Home"/>
     <item
         android:id="@+id/tenants"
-        android:icon="@drawable/tenant1"
+        android:icon="@drawable/ic_baseline_people_24"
         android:title="Tenants"/>
 
     <item

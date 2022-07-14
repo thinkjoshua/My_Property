@@ -87,7 +87,7 @@ public class TenantsDefectsActivity extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.move:
-                        startActivity(new Intent(TenantsDefectsActivity.this, TenantDefectActivity.class));
+                        startActivity(new Intent(TenantsDefectsActivity.this, TenantsDoneDefects.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.favourites:

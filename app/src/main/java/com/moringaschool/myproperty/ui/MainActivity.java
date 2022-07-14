@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.requests:
-                        startActivity(new Intent(MainActivity.this, ManagerDashboardActivity.class));
+                        startActivity(new Intent(MainActivity.this, ManagersDoneDefects.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.back:
