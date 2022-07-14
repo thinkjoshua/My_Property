@@ -180,7 +180,7 @@ public class PropertiesActivity extends AppCompatActivity implements View.OnClic
 
         }else
         if (v == properBind.add2){
-            Intent intent = new Intent(PropertiesActivity.this, DefectPostActivity.class);
+            Intent intent = new Intent(PropertiesActivity.this, TenantDefectActivity.class);
             startActivity(intent);
         }
 

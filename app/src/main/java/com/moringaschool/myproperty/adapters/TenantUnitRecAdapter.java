@@ -17,6 +17,7 @@ import com.moringaschool.myproperty.models.Tenant;
 import com.moringaschool.myproperty.models.Unit;
 import com.moringaschool.myproperty.ui.TenantsDoneDefects;
 
+import java.text.DateFormat;
 import java.util.List;
 
 import retrofit2.Call;
@@ -56,6 +57,8 @@ public class TenantUnitRecAdapter extends RecyclerView.Adapter<TenantUnitRecAdap
                     tenant = response.body();
                     holder.tenantName1.setText("Occupied by: "+tenant.getTenant_name());
                     holder.tenantPhone2.setText(tenant.getTenant_phone());
+                    String date = DateFormat.getDateTimeInstance().format(tenant.getJoined());
+                    holder.joined.setText(date);
 
                 }else{
                     holder.tenantName1.setText("Vacant");
@@ -80,7 +83,7 @@ public class TenantUnitRecAdapter extends RecyclerView.Adapter<TenantUnitRecAdap
     }
 
     public class myHolder extends RecyclerView.ViewHolder{
-        TextView name, tenantName1, tenantPhone2, unitRooms;
+        TextView name, tenantName1, tenantPhone2, unitRooms, joined;
         ImageView add, remove;
 
         Unit unit;
@@ -95,6 +98,7 @@ public class TenantUnitRecAdapter extends RecyclerView.Adapter<TenantUnitRecAdap
             unitRooms = itemView.findViewById(R.id.location);
             remove = itemView.findViewById(R.id.remove);
             add = itemView.findViewById(R.id.add);
+            joined = itemView.findViewById(R.id.joined);
 
             add.setVisibility(View.GONE);
         }
@@ -103,7 +107,6 @@ public class TenantUnitRecAdapter extends RecyclerView.Adapter<TenantUnitRecAdap
             this.unit = unit;
             name.setText(unit.getUnit_name());
             tenantName1.setText("Vacant");
-            tenantPhone2.setVisibility(View.GONE);
             unitRooms.setText("This unit contains " + unit.getUnit_rooms() + " rooms");
 
         }

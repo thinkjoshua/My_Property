@@ -56,7 +56,8 @@ public class TenantMainActivity extends AppCompatActivity implements View.OnClic
         mainTenantBind.managerName.setText("Hey "+ tenantName);
         mainTenantBind.questType.setText("Building Name: "+ pref.getString(Constants.PROPERTY_NAME, ""));
         mainTenantBind.questAns.setText("House name: "+ pref.getString(Constants.UNIT_NAME, ""));
-        mainTenantBind.questMode.setText("Manager in charge "+ pref.getString(Constants.DEFECT_MANAGER_NAME, ""));
+        mainTenantBind.questMode.setText("Manager in charge: "+ pref.getString(Constants.DEFECT_MANAGER_NAME, ""));
+        mainTenantBind.location.setVisibility(View.GONE);
         mainTenantBind.add.setVisibility(View.GONE);
 
         mainTenantBind.add.setOnClickListener(this);

@@ -136,7 +136,7 @@ tools:context=".ui.TenantMainActivity">
 
         <TextView
             android:id="@+id/quest_type"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:textSize="18sp"
@@ -145,7 +145,8 @@ tools:context=".ui.TenantMainActivity">
             android:text="Category Name"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/animation_view2"/>
+            app:layout_constraintRight_toLeftOf="@id/animation_view2"
+            app:layout_constraintBottom_toTopOf="@id/quest_ans"/>
 
         <TextView
             android:id="@+id/quest_ans"
@@ -163,7 +164,6 @@ tools:context=".ui.TenantMainActivity">
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:textColor="@color/white"
-            android:drawableStart="@drawable/phone"
             android:text="Category Name"
             app:layout_constraintTop_toBottomOf="@id/quest_ans"
             app:layout_constraintStart_toStartOf="@id/quest_ans"/>
@@ -174,13 +174,12 @@ tools:context=".ui.TenantMainActivity">
             android:text="location"
             android:textColor="@color/white"
             android:layout_marginTop="8dp"
-            android:drawableStart="@drawable/mail"
             app:layout_constraintTop_toBottomOf="@id/quest_mode"
             app:layout_constraintStart_toStartOf="@id/quest_mode"/>
 
         <ImageView
             android:id="@+id/animation_view2"
-            android:layout_width="170dp"
+            android:layout_width="100dp"
             android:layout_height="0dp"
             android:src="@drawable/houses"
             android:scaleType="centerCrop"

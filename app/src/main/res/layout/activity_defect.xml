@@ -6,7 +6,6 @@
     android:background="@drawable/layout"
     android:layout_marginStart="8dp"
     android:layout_marginEnd="8dp"
-    android:layout_marginBottom="4dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.imageview.ShapeableImageView
@@ -25,72 +24,75 @@
         android:id="@+id/propertyName"
         android:text="Property Name"
         android:layout_margin="8dp"
-        android:textColor="@color/white"
+        android:textColor="@color/blue"
+        android:textStyle="bold"
+        android:textSize="18sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toRightOf="@id/image"/>
 
     <TextView
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="12dp"
         android:id="@+id/propertyDescription"
         android:text="occupied"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@id/propertyName"
         app:layout_constraintStart_toEndOf="@id/image"
-        app:layout_constraintBottom_toTopOf="@id/occupied"
-        app:layout_constraintRight_toLeftOf="@id/occupied"
+        app:layout_constraintBottom_toTopOf="@+id/name"
+        app:layout_constraintRight_toLeftOf="@+id/name"
         />
     <TextView
         android:id="@+id/name"
         android:text="Property Description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        app:layout_constraintLeft_toRightOf="@id/propertyDescription"
-        app:layout_constraintTop_toTopOf="@id/propertyDescription"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@id/propertyDescription"
+        app:layout_constraintTop_toBottomOf="@id/propertyDescription"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/occupied"
         />
 
     <TextView
-        android:layout_margin="8dp"
         android:id="@+id/occupied"
         android:text="Property Description"
-        android:drawableStart="@drawable/location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toEndOf="@id/image"
-        app:layout_constraintTop_toBottomOf="@id/propertyDescription"
-        app:layout_constraintBottom_toTopOf="@id/joined"
+        app:layout_constraintStart_toStartOf="@id/name"
+        app:layout_constraintTop_toBottomOf="@id/name"
+        app:layout_constraintBottom_toTopOf="@id/unit_name"
         />
 
     <TextView
+        android:layout_marginTop="4dp"
         android:id="@+id/unit_name"
         android:text="Property Description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        app:layout_constraintLeft_toRightOf="@id/occupied"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@id/occupied"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/occupied"
-        app:layout_constraintBottom_toBottomOf="@id/occupied"
+        app:layout_constraintTop_toBottomOf="@id/occupied"
+        app:layout_constraintBottom_toTopOf="@id/joined"
         />
 
     <TextView
-        android:layout_margin="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
         android:id="@+id/joined"
         android:text="joined"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/occupied"
-        app:layout_constraintBottom_toBottomOf="@id/occupied"
-        app:layout_constraintStart_toEndOf="@id/image"
+        app:layout_constraintTop_toBottomOf="@id/unit_name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/unit_name"
         />
 
 

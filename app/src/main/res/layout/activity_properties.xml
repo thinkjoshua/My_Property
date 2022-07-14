@@ -173,13 +173,13 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom"
-        android:background="@color/gold"
+        android:background="@color/blue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:menu="@menu/navigation"
         app:labelVisibilityMode="labeled"
-        app:itemIconTint="@color/blue"
-        app:itemTextColor="@color/blue"
+        app:itemIconTint="@color/gold"
+        app:itemTextColor="@color/gold"
         app:layout_constraintTop_toBottomOf="@id/recView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

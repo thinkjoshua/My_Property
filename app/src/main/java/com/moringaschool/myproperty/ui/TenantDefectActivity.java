@@ -77,6 +77,9 @@ public class TenantDefectActivity extends AppCompatActivity {
         storageReference = storage.getReference();
         calls = RetrofitClient.getClient();
 
+        mainBind.buildingNameET.getEditText().setText(pref.getString(Constants.PROPERTY_NAME, ""));
+        mainBind.houseNumberET.getEditText().setText(pref.getString(Constants.UNIT_NAME, ""));
+
 
         mainBind.captureImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -248,8 +251,6 @@ public class TenantDefectActivity extends AppCompatActivity {
 
     private void saveDefect() {
         String defectDescription = mainBind.defectDescriptionEditText.getEditText().getText().toString().trim();
-        mainBind.buildingNameET.getEditText().setText(pref.getString(Constants.PROPERTY_NAME, ""));
-        mainBind.houseNumberET.getEditText().setText(pref.getString(Constants.PROPERTY_NAME, ""));
         String tenant_id = pref.getString(Constants.TENANT_ID, "");
         String manager_name = pref.getString(Constants.DEFECT_MANAGER_NAME, "");
 

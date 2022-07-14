@@ -6,7 +6,7 @@
     android:background="@drawable/layout"
     android:layout_margin="16dp"
     android:layout_marginBottom="20dp"
-    android:backgroundTint="#EAE6E6">
+    android:backgroundTint="@color/color_frag">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/logoTenant"

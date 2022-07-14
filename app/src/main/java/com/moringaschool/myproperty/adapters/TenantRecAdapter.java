@@ -55,13 +55,13 @@ public class TenantRecAdapter extends RecyclerView.Adapter<TenantRecAdapter.myHo
         }
 
         public void setData(Tenant tenant){
-            name.setText(tenant.getTenant_name());
-            description.setText(tenant.getTenant_phone());
+            name.setText("Tenant name: "+tenant.getTenant_name());
+            description.setText("Found in: "+tenant.getProperty_name());
             String date = DateFormat.getDateTimeInstance().format(tenant.getJoined());
-            occupied.setText(tenant.getTenant_email());
-            propertyName.setText(tenant.getProperty_name());
-            unit_name.setText(tenant.getUnit_name());
-            joined.setText(date);
+            occupied.setText("Lives in house: "+tenant.getUnit_name());
+            propertyName.setText("Tenant phone number: "+tenant.getTenant_phone());
+            unit_name.setText("Tenant Email: "+tenant.getTenant_email());
+            joined.setText("Joined in: "+date);
         }
     }
 }
